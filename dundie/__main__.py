@@ -1,1 +1,4 @@
-print("Executing entry point for dundie... nova infor")
+
+def main():
+    print("Executing dundie from entryu point.")
+    
