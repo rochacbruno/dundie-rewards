@@ -1,0 +1,30 @@
+name: CI
+
+on: 
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+  workflow_dispatch:
+
+
+jobs:
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.9', '3.10']
+        os: [ubuntu-latest]
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{matrix.python-version}}
+      - name: Install Project 
+        run: pip install '.[test]'
+      - name: Run tests 
+        run: pytest -vv tests integration
