@@ -1,0 +1,8 @@
+# dev dependencies
+ipython>=7.0.0,<=8.0.0
+ipdb
+pudb
+pytest-watch
+
+# Install project as editable
+-e .
