@@ -27,4 +27,10 @@ jobs:
       - name: Install Project 
         run: pip install '.[test]'
       - name: Run tests 
-        run: pytest -vv tests integration
+        run: make testci
+      - name: publish junit results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: test-result.xml
+          check_name: Test Result (Python ${{matrix.python-version}})
