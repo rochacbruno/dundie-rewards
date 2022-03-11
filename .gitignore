@@ -128,3 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .vscodelocal
+
+
+# ignore logs
+*.log.*
