@@ -6,7 +6,7 @@ log = get_logger()
 
 def load(filepath):
     """Loads data from filepath to the database.
-    
+
     >>> len(load('assets/people.csv'))
     2
     """
