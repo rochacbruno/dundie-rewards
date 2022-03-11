@@ -22,4 +22,5 @@ def test_load_negative_call_load_command_with_wrong_params(wrong_command):
             ["dundie", wrong_command, "tests/assets/people.csv"]
         ).decode("utf-8").split("\n")
 
+    print("...........................................................................")
     assert "status 2" in str(error.getrepr())
