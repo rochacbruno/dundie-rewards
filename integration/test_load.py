@@ -1,6 +1,7 @@
 from subprocess import CalledProcessError, check_output
 
 import pytest
+from .constants import PEOPLE_FILE
 
 
 @pytest.mark.integration
@@ -8,7 +9,7 @@ import pytest
 def test_load_positive_call_load_command():
     """test command load"""
     out = (
-        check_output(["dundie", "load", "tests/assets/people.csv"])
+        check_output(["dundie", "load", PEOPLE_FILE])
         .decode("utf-8")
         .split("\n")
     )
@@ -22,7 +23,7 @@ def test_load_negative_call_load_command_with_wrong_params(wrong_command):
     """test command load"""
     with pytest.raises(CalledProcessError) as error:
         check_output(
-            ["dundie", wrong_command, "tests/assets/people.csv"]
+            ["dundie", wrong_command, PEOPLE_FILE]
         ).decode("utf-8").split("\n")
 
     assert "status 2" in str(error.getrepr())
