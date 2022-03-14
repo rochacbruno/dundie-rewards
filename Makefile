@@ -22,11 +22,11 @@ fmt:
 	@.venv/bin/black dundie tests integration
 
 test:
-	@.venv/bin/pytest -s
+	@DUNDIE_ENV=testing .venv/bin/pytest -s --forked
 
 watch:
 	# @.venv/bin/ptw
-	@ls **/*.py | entr pytest
+	@ls **/*.py | DUNDIE_ENV=testing  entr pytest --forked
 
 
 clean:            ## Clean unused files.

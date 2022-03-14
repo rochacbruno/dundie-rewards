@@ -1,0 +1,324 @@
+{
+    "people": {
+        "jim@dundlermifflin.com": {
+            "name": "Jim Halpert",
+            "dept": "Sales",
+            "role": "Salesman",
+            "created": true,
+            "email": "jim@dundlermifflin.com"
+        },
+        "schrute@dundlermifflin.com": {
+            "name": "Dwight Schrute",
+            "dept": "Sales",
+            "role": "Manager",
+            "created": true,
+            "email": "schrute@dundlermifflin.com"
+        },
+        "glewis@dundlermifflin.com": {
+            "name": "Gabe Lewis",
+            "dept": "Director",
+            "role": "Manager",
+            "created": true,
+            "email": "glewis@dundlermifflin.com"
+        }
+    },
+    "balance": {
+        "jim@dundlermifflin.com": 3000,
+        "schrute@dundlermifflin.com": 2400,
+        "glewis@dundlermifflin.com": 500
+    },
+    "movement": {
+        "jim@dundlermifflin.com": [
+            {
+                "date": "2022-03-15T13:19:29.830118",
+                "actor": "system",
+                "value": 500
+            },
+            {
+                "date": "2022-03-15T13:38:16.950641",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:38:20.572091",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:38:47.326683",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:38:58.255540",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:39:41.598843",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:39:53.670183",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:39:57.598455",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:40:02.681450",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:40:56.614155",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:09.260904",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:11.699092",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:12.721239",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:13.751874",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:15.012596",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:25.755821",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:28.276757",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:29.485797",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:30.655294",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:36.011238",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:43.911187",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:42:01.336833",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:43:41.422237",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:43:42.786002",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:44:05.930942",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:44:07.113355",
+                "actor": "rochacbruno",
+                "value": 100
+            }
+        ],
+        "schrute@dundlermifflin.com": [
+            {
+                "date": "2022-03-15T13:19:29.831940",
+                "actor": "system",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:38:16.950650",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:38:20.572104",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:38:47.326694",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:38:58.255550",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:39:41.598853",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:39:53.670193",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:39:57.598470",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:40:02.681460",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:40:56.614164",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:09.260914",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:11.699103",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:12.721249",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:13.751884",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:15.012605",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:25.755831",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:28.276769",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:29.485807",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:30.655304",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:36.011247",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:41:43.911197",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:42:01.336843",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:43:41.422247",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:43:42.786012",
+                "actor": "rochacbruno",
+                "value": 100
+            }
+        ],
+        "glewis@dundlermifflin.com": [
+            {
+                "date": "2022-03-15T13:19:29.832216",
+                "actor": "system",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:38:16.950652",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:38:20.572107",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:38:47.326697",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-15T13:38:58.255553",
+                "actor": "rochacbruno",
+                "value": 100
+            }
+        ]
+    },
+    "users": {
+        "jim@dundlermifflin.com": {
+            "password": "HqWkafEI"
+        },
+        "schrute@dundlermifflin.com": {
+            "password": "fDdnazSi"
+        },
+        "glewis@dundlermifflin.com": {
+            "password": "yhRwCDFr"
+        }
+    }
+}

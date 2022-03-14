@@ -1,6 +1,6 @@
 name: CI
 
-on: 
+on:
   push:
     branches:
       - "main"
@@ -24,7 +24,7 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: ${{matrix.python-version}}
-      - name: Install Project 
+      - name: Install Project
         run: pip install '.[test]'
       - name: Look for style errors
         run: pflake8
@@ -41,14 +41,16 @@ jobs:
         python-version: ['3.9', '3.10']
         os: [ubuntu-latest]
     runs-on: ${{matrix.os}}
+    env:
+      DUNDIE_ENV: testing
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: ${{matrix.python-version}}
-      - name: Install Project 
+      - name: Install Project
         run: pip install '.[test]'
-      - name: Run tests 
+      - name: Run tests
         run: pytest -v --junitxml=test-result.xml
       - name: publish junit results
         uses: EnricoMi/publish-unit-test-result-action@v1
