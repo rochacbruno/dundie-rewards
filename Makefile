@@ -44,3 +44,10 @@ clean:            ## Clean unused files.
 	@rm -rf .tox/
 	@rm -rf docs/_build
 
+build: clean
+	@python setup.py sdist bdist_wheel
+
+publish:
+	#TWINE_USERNAME=__token__
+	#TWINE_PASSWORD=pypi-<YOUTTOKEN>
+	@twine upload --repository testpypi dist/*
