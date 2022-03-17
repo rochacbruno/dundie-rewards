@@ -17,8 +17,8 @@
         }
     },
     "balance": {
-        "jim@dundlermifflin.com": 553,
-        "schrute@dundlermifflin.com": 153,
+        "jim@dundlermifflin.com": 653,
+        "schrute@dundlermifflin.com": 253,
         "glewis@dundlermifflin.com": 200
     },
     "movement": {
@@ -112,6 +112,11 @@
                 "date": "2022-03-16T19:15:45.947523",
                 "actor": "rochacbruno",
                 "value": 100
+            },
+            {
+                "date": "2022-03-17T15:39:51.508472",
+                "actor": "rochacbruno",
+                "value": 100
             }
         ],
         "schrute@dundlermifflin.com": [
@@ -202,6 +207,11 @@
             },
             {
                 "date": "2022-03-16T19:15:45.947534",
+                "actor": "rochacbruno",
+                "value": 100
+            },
+            {
+                "date": "2022-03-17T15:39:51.508488",
                 "actor": "rochacbruno",
                 "value": 100
             }

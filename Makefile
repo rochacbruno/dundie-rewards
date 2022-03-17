@@ -1,4 +1,4 @@
-.PHONY: install virtualenv ipython clean test pflake8
+.PHONY: install virtualenv ipython clean test pflake8 fmt lint watch docs docs-serve
 
 
 install:
@@ -44,3 +44,10 @@ clean:            ## Clean unused files.
 	@rm -rf .tox/
 	@rm -rf docs/_build
 
+
+docs:
+	@mkdocs build --clean
+
+
+docs-serve:
+	@mkdocs serve
