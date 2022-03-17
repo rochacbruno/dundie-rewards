@@ -13,5 +13,8 @@ isort
 # docs
 mkdocs
 
+# build
+wheel
+
 # Install project as editable
 -e .

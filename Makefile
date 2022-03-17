@@ -1,4 +1,4 @@
-.PHONY: install virtualenv ipython clean test pflake8 fmt lint watch docs docs-serve
+.PHONY: install virtualenv ipython clean test pflake8 fmt lint watch docs docs-serve build
 
 
 install:
@@ -51,3 +51,12 @@ docs:
 
 docs-serve:
 	@mkdocs serve
+
+build:
+	@python setup.py sdist bdist_wheel
+
+publish-test:
+	@twine upload --repository testpypi dist/*
+
+publish:
+	@twine upload dist/*
