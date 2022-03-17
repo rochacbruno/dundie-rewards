@@ -32,6 +32,8 @@ pip install -e `.[dev]`
 ## Usage
 
 ```py
-dundie load assets/people.csv
+dundie --help
 ```
+
+![](./assets/dundie.gif)
 
