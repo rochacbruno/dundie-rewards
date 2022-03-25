@@ -50,7 +50,7 @@ def read(**query):
         if dept and dept != data["dept"]:
             continue
 
-        # WALRUS / Assignment Expression - a partir do python 3.8
+        # ! WALRUS / Assignment Expression - a partir do python 3.8
         if (email := query.get("email")) and email != pk:
             continue
 
