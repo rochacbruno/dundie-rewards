@@ -4,8 +4,14 @@ from datetime import datetime
 from dundie.settings import DATABASE_PATH, EMAIL_FROM
 from dundie.utils.email import check_valid_email, send_email
 from dundie.utils.user import generate_simple_password
+from typing import Dict, Any
 
-EMPTY_DB = {"people": {}, "balance": {}, "movement": {}, "users": {}}
+EMPTY_DB: Dict[str, Dict[str, Any]] = {
+    "people": {},
+    "balance": {},
+    "movement": {},
+    "users": {}
+}
 
 
 def connect() -> dict:

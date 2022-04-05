@@ -68,7 +68,7 @@ def show(output, **query):
 
     table = Table(title="Dunder Mifflin Report")
     for key in result[0]:
-        table.add_column(key.title(), style="magenta")
+        table.add_column(key.title().replace("_", " "), style="magenta")
 
     for person in result:
         table.add_row(*[str(value) for value in person.values()])
