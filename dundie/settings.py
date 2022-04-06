@@ -1,10 +1,10 @@
 import os
 
-SMTP_HOST = "localhost"
-SMTP_PORT = 8025
-SMTP_TIMEOUT = 5
+SMTP_HOST: str = "localhost"
+SMTP_PORT: int = 8025
+SMTP_TIMEOUT: int = 5
 
-EMAIL_FROM = "master@dundie.com"
+EMAIL_FROM: str = "master@dundie.com"
 
-ROOT_PATH = os.path.dirname(__file__)
-DATABASE_PATH = os.path.join(ROOT_PATH, "..", "assets", "database.json")
+ROOT_PATH: str = os.path.dirname(__file__)
+DATABASE_PATH: str = os.path.join(ROOT_PATH, "..", "assets", "database.json")

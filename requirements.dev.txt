@@ -16,5 +16,9 @@ mkdocs
 # build
 wheel
 
+# typing
+mypy
+types-setuptools
+
 # Install project as editable
 -e .
