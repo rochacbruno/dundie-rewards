@@ -26,10 +26,12 @@ jobs:
           python-version: ${{matrix.python-version}}
       - name: Install Project
         run: pip install '.[test]'
+      # - name: Typing
+      #   run: mypy --ignore-missing-imports dundie
       - name: Look for style errors
         run: pflake8
       - name: Check for importing style
-        run: isort --profile=black --check --diff dundie tests integration
+        run: isort --profile=black -m 3 --check --diff dundie tests integration
       - name: Look for auto format errors
         run: black --check --diff dundie tests integration
 

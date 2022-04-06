@@ -1,6 +1,14 @@
 import pytest
 
-from dundie.database import EMPTY_DB, add_movement, add_person, commit, connect
+from dundie.database import (
+    EMPTY_DB,
+    ORM,
+    add_movement,
+    add_person,
+    commit,
+    connect,
+)
+from dundie.models import Balance, InvalidEmailError, Movement, Person
 
 
 @pytest.mark.unit
@@ -13,18 +21,20 @@ def test_ensure_database_is_test():
 @pytest.mark.unit
 def test_database_schema():
     db = connect()
-    assert db.keys() == EMPTY_DB.keys()
+    db_keys = {ORM.get_table_name(model) for model in db}
+    assert db_keys == EMPTY_DB.keys()
 
 
 @pytest.mark.unit
 def test_commit_to_database():
     db = connect()
+    pk = "joe@doe.com"
     data = {"name": "Joe Doe", "role": "Salesman", "dept": "Sales"}
-    db["people"]["joe@doe.com"] = data
+    db[Person].append(Person(pk=pk, **data))
     commit(db)
 
     db = connect()
-    assert db["people"]["joe@doe.com"] == data
+    assert db[Person].get_by_pk("joe@doe.com").dict() == {"pk": pk, **data}
 
 
 @pytest.mark.unit
@@ -32,21 +42,21 @@ def test_add_person_for_the_first_time():
     pk = "joe@doe.com"
     data = {"role": "Salesman", "dept": "Sales", "name": "Joe Doe"}
     db = connect()
-    _, created = add_person(db, pk, data)
+    _, created = add_person(db, Person(pk=pk, **data))
     assert created is True
     commit(db)
 
     db = connect()
-    assert db["people"][pk] == data
-    assert db["balance"][pk] == 500
-    assert len(db["movement"][pk]) > 0
-    assert db["movement"][pk][0]["value"] == 500
+    assert db[Person].get_by_pk(pk) == {"pk": pk, **data}
+    assert db[Balance].get_by_pk(pk).value == 500
+    assert len(db[Movement].filter(person__pk=pk)) > 0
+    assert db[Movement].filter(person__pk=pk).first().value == 500
 
 
 @pytest.mark.unit
 def test_negative_add_person_invalid_email():
-    with pytest.raises(ValueError):
-        add_person({}, ".@bla", {})
+    with pytest.raises(InvalidEmailError):
+        add_person({}, Person(pk=".@bla"))
 
 
 @pytest.mark.unit
@@ -54,18 +64,19 @@ def test_add_or_remove_points_for_person():
     pk = "joe@doe.com"
     data = {"role": "Salesman", "dept": "Sales", "name": "Joe Doe"}
     db = connect()
-    _, created = add_person(db, pk, data)
+    person = Person(pk=pk, **data)
+    _, created = add_person(db, person)
     assert created is True
     commit(db)
 
     db = connect()
-    before = db["balance"][pk]
+    before = db[Balance].get_by_pk(pk).value
 
-    add_movement(db, pk, -100, "manager")
+    add_movement(db, person, -100, "manager")
     commit(db)
 
     db = connect()
-    after = db["balance"][pk]
+    after = db[Balance].get_by_pk(pk).value
 
     assert after == before - 100
     assert after == 400

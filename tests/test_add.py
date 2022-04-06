@@ -2,6 +2,7 @@ import pytest
 
 from dundie.core import add, load, read
 from dundie.database import add_person, commit, connect
+from dundie.models import Balance, Person
 
 from .constants import PEOPLE_FILE
 
@@ -12,12 +13,12 @@ def test_add_movement():
 
     pk = "joe@doe.com"
     data = {"role": "Salesman", "dept": "Sales", "name": "Joe Doe"}
-    _, created = add_person(db, pk, data)
+    _, created = add_person(db, Person(pk=pk, **data))
     assert created is True
 
     pk = "jim@doe.com"
     data = {"role": "Manager", "dept": "Management", "name": "Jim Doe"}
-    _, created = add_person(db, pk, data)
+    _, created = add_person(db, Person(pk=pk, **data))
     assert created is True
 
     commit(db)
@@ -26,8 +27,8 @@ def test_add_movement():
     add(90, dept="Management")
 
     db = connect()
-    assert db["balance"]["joe@doe.com"] == 470
-    assert db["balance"]["jim@doe.com"] == 190
+    assert db[Balance].get_by_pk("joe@doe.com").value == 470
+    assert db[Balance].get_by_pk("jim@doe.com").value == 190
 
 
 @pytest.mark.unit

@@ -3,11 +3,11 @@
 
 install:
 	@echo "Installing for dev environment"
-	@.venv/bin/python -m pip install -e '.[dev]'
+	@.venv/bin/python -m pip install -e '.[test,dev]'
 
 
 virtualenv:
-	@.venv/bin/python -m pip -m venv .venv
+	@python -m venv .venv
 
 
 ipython:
@@ -15,10 +15,11 @@ ipython:
 
 
 lint:
+	#@.venv/bin/mypy --ignore-missing-imports dundie
 	@.venv/bin/pflake8
 
 fmt:
-	@.venv/bin/isort dundie tests integration
+	@.venv/bin/isort --profile=black -m 3 dundie tests integration
 	@.venv/bin/black dundie tests integration
 
 test:
