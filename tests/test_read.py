@@ -2,6 +2,7 @@ import pytest
 
 from dundie.core import load, read
 from dundie.database import add_person, commit, connect
+from dundie.models import Person
 
 from .constants import PEOPLE_FILE
 
@@ -12,12 +13,12 @@ def test_read_with_query():
 
     pk = "joe@doe.com"
     data = {"role": "Salesman", "dept": "Sales", "name": "Joe Doe"}
-    _, created = add_person(db, pk, data)
+    _, created = add_person(db, Person(pk=pk, **data))
     assert created is True
 
     pk = "jim@doe.com"
     data = {"role": "Manager", "dept": "Management", "name": "Jim Doe"}
-    _, created = add_person(db, pk, data)
+    _, created = add_person(db, Person(pk=pk, **data))
     assert created is True
 
     commit(db)
