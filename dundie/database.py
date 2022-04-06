@@ -91,7 +91,7 @@ def connect() -> dict:
         raw_data = EMPTY_DB
 
     # transform raw data from json to model objects / Deserialize
-    results = defaultdict(ResultList)
+    results: Dict[Any, ResultList] = defaultdict(ResultList)
     indexes = {}
     for table_name, data in raw_data.items():
         Model = ORM.get_model_class(table_name)
