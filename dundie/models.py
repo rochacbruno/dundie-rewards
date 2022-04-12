@@ -14,7 +14,9 @@ class InvalidEmailError(Exception):
 
 class Person(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True, index=True)
-    email: str = Field(nullable=False, index=True)
+    email: str = Field(
+        nullable=False, index=True, sa_column_kwargs={"unique": True}
+    )
     name: str = Field(nullable=False)
     dept: str = Field(nullable=False, index=True)
     role: str = Field(nullable=False)
@@ -35,7 +37,11 @@ class Person(SQLModel, table=True):
 
 class Balance(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True, index=True)
-    person_id: int = Field(foreign_key="person.id")
+    person_id: int = Field(
+        foreign_key="person.id",
+        sa_column_kwargs={"unique": True}
+        # there is only one balance for each person
+    )
     value: condecimal(decimal_places=3) = Field(default=0)
 
     person: Person = Relationship(back_populates="balance")
@@ -59,7 +65,9 @@ class Movement(SQLModel, table=True):
 
 class User(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True, index=True)
-    person_id: int = Field(foreign_key="person.id")
+    person_id: int = Field(
+        foreign_key="person.id", sa_column_kwargs={"unique": True}
+    )
     password: str = Field(default_factory=generate_simple_password)
 
     person: Person = Relationship(back_populates="user")
