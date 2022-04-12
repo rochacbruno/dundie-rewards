@@ -1,5 +1,5 @@
 # dev dependencies
-ipython>=7.0.0,<=8.0.0
+ipython
 ipdb
 pudb
 pytest-watch
