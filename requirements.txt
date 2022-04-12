@@ -3,3 +3,4 @@ rich
 rich-click
 pydantic
 sqlmodel
+httpx
