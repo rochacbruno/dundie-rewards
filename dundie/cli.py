@@ -40,7 +40,7 @@ def load(filepath):
     - Loads to database
     """
     table = Table(title="Dunder Mifflin Associates")
-    headers = ["name", "dept", "role", "created", "e-mail"]
+    headers = ["email", "name", "dept", "role", "created"]
     for header in headers:
         table.add_column(header, style="magenta")
 
@@ -63,7 +63,7 @@ def show(output, **query):
         with open(output, "w") as output_file:
             output_file.write(json.dumps(result))
 
-    if not result:
+    if len(result) == 0:
         print("Nothing to show")
 
     table = Table(title="Dunder Mifflin Report")
