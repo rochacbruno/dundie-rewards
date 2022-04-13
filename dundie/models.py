@@ -20,6 +20,7 @@ class Person(SQLModel, table=True):
     name: str = Field(nullable=False)
     dept: str = Field(nullable=False, index=True)
     role: str = Field(nullable=False)
+    currency: str = Field(default="USD")
 
     balance: "Balance" = Relationship(back_populates="person")
     movement: "Movement" = Relationship(back_populates="person")
