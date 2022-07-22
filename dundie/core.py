@@ -1,5 +1,5 @@
 """Core module for dundie"""
-from dundie.utils import get_logger
+from dundie.utils.logs import get_logger
 
 log = get_logger()
 
