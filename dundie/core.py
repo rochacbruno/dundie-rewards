@@ -15,7 +15,8 @@ def load(filepath):
     """
     try:
         with open(filepath) as file_:
-           return file_.readlines()
+            for line in file_:
+                print(line)
     except FileNotFoundError as e:
         log.error(str(e))
         raise e
