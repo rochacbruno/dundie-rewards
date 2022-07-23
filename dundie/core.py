@@ -1,4 +1,4 @@
-"""Core module for dundie"""
+"""Core module for dundie - (controler or base or paste load)"""
 from dundie.utils.logs import get_logger
 
 log = get_logger()
@@ -15,8 +15,9 @@ def load(filepath):
     """
     try:
         with open(filepath) as file_:
-            for line in file_:
-                print(line)
+            return file_.readlines()
+            '''for line in file_:
+                print(line)'''
     except FileNotFoundError as e:
         log.error(str(e))
         raise e
