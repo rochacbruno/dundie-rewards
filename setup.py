@@ -5,9 +5,9 @@ from setuptools import setup, find_packages
 
 def read(*paths):
     """Read the conmtents of a text of safely
-    >>>read("project_name", "VERSION")
+    >>> read("project_name", "VERSION")
     '0.1.0'
-    >>>read("README.md")
+    >>> read("README.md")
     """
     rootpath = os.path.dirname(__file__)
     filepath = os.path.join(rootpath, *paths)
@@ -38,7 +38,7 @@ setup(
     packages=find_packages(),
     entry_points={
         "console_scripts": [
-            "dundie1 = dundie.__main__:main"
+            "dundie = dundie.__main__:main"
         ]
     },
     install_requires= read_requirements("requirements.txt"),
