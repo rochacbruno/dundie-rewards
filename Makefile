@@ -15,7 +15,10 @@ ipython:
 	@.venv/bin/ipython
 
 test:
-	@.venv/bin/pytest -vv dundie/test
+	@.venv/bin/pytest -- -vv -s tests/
+
+watch:
+	@.venv/bin/ptw -- -vv -s
 
 
 clean:            ## Clean unused files.
