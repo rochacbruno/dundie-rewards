@@ -4,7 +4,7 @@
 
 install:
 	@echo "Installing for dev environment"
-	@.venv/bin/python -m pip install -e '.[dev]'
+	@.venv/bin/python -m pip install -e '.[test,dev]'
 
 
 virtualenv:
@@ -15,10 +15,11 @@ ipython:
 	@.venv/bin/ipython
 
 test:
-	@.venv/bin/pytest -- -vv -s tests/
+	@.venv/bin/pytest -s
 
 watch:
-	@.venv/bin/ptw -- -vv -s
+	# @.venv/bin/ptw
+	@ls **/*.py | entr pytest
 
 
 clean:            ## Clean unused files.
