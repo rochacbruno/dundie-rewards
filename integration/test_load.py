@@ -10,4 +10,4 @@ def test_load():
         ]
     ).decode("utf-8").split("\n")
     assert len(out) == 2
-    assert out[0][0] == 'J'
+
