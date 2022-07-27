@@ -5,7 +5,7 @@
 install:
 	@echo "Installing for dev environment"
 	@.venv/bin/python -m pip install -e '.[test,dev]'
-	@sudo apt-get install entr
+
 
 
 virtualenv:
