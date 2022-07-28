@@ -7,6 +7,7 @@ install:
 	@.venv/bin/python -m pip install -e '.[test,dev]'
 
 
+
 virtualenv:
 	@.venv/bin/python -m pip -m venv .venv
 

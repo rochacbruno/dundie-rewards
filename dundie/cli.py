@@ -1,6 +1,7 @@
 import argparse
 from dundie.core import load
 
+
 def main():
     parser = argparse.ArgumentParser(
     description="Dunder Mifflin Rewards CLI",
