@@ -16,11 +16,11 @@ ipython:
 	@.venv/bin/ipython
 
 test:
-	@.venv/bin/pytest -s
+	@.venv/bin/pytest -s -m unit
 
 watch:
-	# @.venv/bin/ptw
-	@ls **/*.py | entr pytest
+	#@.venv/bin/ptw
+	@ls **/*.py | entr pytest -s -m integration
 
 
 clean:            ## Clean unused files.
