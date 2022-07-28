@@ -1,5 +1,4 @@
-# Makefile
-.PHONY: install virtualenv ipython clean test
+.PHONY: install virtualenv ipython clean test pflake8 fmt lint watch docs docs-serve build
 
 
 install:
@@ -7,20 +6,28 @@ install:
 	@.venv/bin/python -m pip install -e '.[test,dev]'
 
 
-
 virtualenv:
-	@.venv/bin/python -m pip -m venv .venv
+	@python -m venv .venv
 
 
 ipython:
 	@.venv/bin/ipython
 
+
+lint:
+	#@.venv/bin/mypy --ignore-missing-imports dundie
+	@.venv/bin/pflake8
+
+fmt:
+	@.venv/bin/isort --profile=black -m 3 dundie tests integration
+	@.venv/bin/black dundie tests integration
+
 test:
-	@.venv/bin/pytest -s -m unit
+	@.venv/bin/pytest -s
 
 watch:
-	#@.venv/bin/ptw
-	@ls **/*.py | entr pytest -s -m integration
+	# @.venv/bin/ptw
+	@ls **/*.py | entr pytest
 
 
 clean:            ## Clean unused files.
@@ -37,3 +44,20 @@ clean:            ## Clean unused files.
 	@rm -rf htmlcov
 	@rm -rf .tox/
 	@rm -rf docs/_build
+
+
+docs:
+	@mkdocs build --clean
+
+
+docs-serve:
+	@mkdocs serve
+
+build:
+	@python setup.py sdist bdist_wheel
+
+publish-test:
+	@twine upload --repository testpypi dist/*
+
+publish:
+	@twine upload dist/*
