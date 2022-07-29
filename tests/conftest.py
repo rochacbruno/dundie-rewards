@@ -1,3 +1,6 @@
+import pytest
+
+
 MARKER = """\
 unit: Mark unit tests
 integration: Mark integration tests
@@ -10,3 +13,9 @@ def pytest_configure(config):
     # mode interative
     for line in MARKER.split("\n"):
         config.addinivalue_line('markers', line)
+
+@pytest.fixture(autouse=True)
+def go_to_tmpdir(request): # injeção de dependencias
+    tmpdir = request.getfixturevalue("tmpdir")
+    with tmpdir.as_cwd():
+        yield
