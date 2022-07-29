@@ -25,6 +25,9 @@ fmt:
 test:
 	@.venv/bin/pytest -s
 
+testci:
+	@.venv/bin/pytest -v --junitxml=text-result.xml
+
 watch:
 	# @.venv/bin/ptw
 	@ls **/*.py | entr pytest
