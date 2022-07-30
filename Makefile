@@ -1,4 +1,4 @@
-.PHONY: install virtualenv ipython clean test pflake8 fmt lint watch docs docs-serve build
+.PHONY: install virtualenv ipython clean test fmt lint watch docs docs-serve build
 
 
 install:
