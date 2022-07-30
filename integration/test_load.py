@@ -1,6 +1,6 @@
 import pytest
 from subprocess import check_output
-from tests.constants import PEOPLE_FILE
+
 
 
 @pytest.mark.integration
@@ -9,6 +9,6 @@ def test_load():
     """test command load"""
 
     out = check_output(
-        ["dundie", "load", PEOPLE_FILE]
+        ["dundie", "load", "tests/assets/people.csv"]
     ).decode("utf-8").split("|")
     assert len(out) == 3
