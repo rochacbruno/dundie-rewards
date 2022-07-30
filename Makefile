@@ -15,11 +15,6 @@ ipython:
 
 
 
-
-fmt:
-	@.venv/bin/isort --profile=black -m 3 dundie tests integration
-	@.venv/bin/black dundie tests integration
-
 test:
 	@.venv/bin/pytest -s
 
@@ -45,20 +40,3 @@ clean:            ## Clean unused files.
 	@rm -rf htmlcov
 	@rm -rf .tox/
 	@rm -rf docs/_build
-
-
-docs:
-	@mkdocs build --clean
-
-
-docs-serve:
-	@mkdocs serve
-
-build:
-	@python setup.py sdist bdist_wheel
-
-publish-test:
-	@twine upload --repository testpypi dist/*
-
-publish:
-	@twine upload dist/*
