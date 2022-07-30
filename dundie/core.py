@@ -1,7 +1,5 @@
 """Core module for dundie - (controler or base or paste load)"""
-
 from dundie.utils.log import get_logger
-
 
 log = get_logger()
 
@@ -10,8 +8,8 @@ def load(filepath):
     """ Loads data from filepath to the database.
     #python -m doctest -v dundie/core.py
 
-    >>> len(load('tests/assets/people.csv'))
-    3
+    >>> len(load('assets/people.csv'))
+    2
 
     """
     try:
