@@ -1,5 +1,5 @@
 import pytest
-from .constants import PEOPLE_FILE
+from tests.constants import PEOPLE_FILE
 from dundie.core import load
 
 
