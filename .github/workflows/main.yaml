@@ -28,4 +28,10 @@ jobs:
       - name: Install Project
         run: pip install '.[test,dev]'
       - name: Run tests
-        run: pytest -vv tests integration
+        run: pytest -v --junitxml=text-result.xml
+      - name: publish junit results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          file: test-result.xml
+          check_name: Test Result (Python ${{matrix.python-version}})
