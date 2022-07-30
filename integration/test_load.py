@@ -10,6 +10,5 @@ def test_load():
 
     out = check_output(
         ["dundie", "load", PEOPLE_FILE]
-    ).decode("utf-8").split("\n")
-    assert out[0][0] == 'J'
-
+    ).decode("utf-8").split("|")
+    assert len(out) == 3
