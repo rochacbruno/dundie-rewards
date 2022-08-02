@@ -1,4 +1,4 @@
-.PHONY: install virtualenv ipython clean test fmt lint watch docs docs-serve build
+.PHONY: install virtualenv ipython clean test fmt lint pflake8 watch docs docs-serve build
 
 
 install:
@@ -13,6 +13,8 @@ virtualenv:
 ipython:
 	@.venv/bin/ipython
 
+lint:
+	@.venv/bin/pflake8 dundie
 
 
 test:

@@ -6,3 +6,8 @@ testpaths = [
     "tests",
     "integration",
 ]
+
+[tool.flake8]
+
+max-line-lenght = 79
+
