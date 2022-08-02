@@ -30,7 +30,7 @@ jobs:
         run: pflake dundie
 
   tests:
-    need: lint
+    needs: lint
     strategy:
       fail-fast: false
       matrix:
