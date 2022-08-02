@@ -29,8 +29,6 @@ jobs:
       - name: Look for style erros
         run: pflake dundie
 
-
-
   tests:
     need: lint
     strategy:
