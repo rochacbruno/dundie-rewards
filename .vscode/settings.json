@@ -3,7 +3,6 @@
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true,
     "python.formatting.provider": "black",
-
     "activitusbar.alignment": "Right",
     "workbench.sideBar.location": "right"
 }

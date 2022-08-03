@@ -1,14 +1,17 @@
+from subprocess import CalledProcessError, check_output
+
 import pytest
-from subprocess import check_output, CalledProcessError
 
 
 @pytest.mark.integration
 @pytest.mark.medium
 def test_load_positive_call_load_command():
     """test command load"""
-    out = check_output(
-        ["dundie", "load", "tests/assets/people.csv"]
-    ).decode("utf-8").split("|")
+    out = (
+        check_output(["dundie", "load", "tests/assets/people.csv"])
+        .decode("utf-8")
+        .split("|")
+    )
     assert len(out) == 3
 
 
