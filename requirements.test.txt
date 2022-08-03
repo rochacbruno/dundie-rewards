@@ -1,8 +1,8 @@
 black
 isort
-flake8=4.0.1
-mccabe=0.6.1
-pycodestyle=2.8.0
-pyflakes=2.4.0
+flake8>=4.0.1
+mccabe>=0.6.1
+pycodestyle>=2.8.0
+pyflakes>=2.4.0
 pytest
 pyproject-flake8
