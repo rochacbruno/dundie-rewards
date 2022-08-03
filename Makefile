@@ -14,7 +14,7 @@ ipython:
 	@.venv/bin/ipython
 
 lint:
-	@.venv/bin/pflake8
+	@.venv/bin/flake8 dundie
 
 fmt:
 	@.venv/bin/isort dundie tests integration

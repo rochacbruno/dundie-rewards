@@ -27,7 +27,7 @@ jobs:
       - name: Install Project
         run: pip install '.[test]'
       - name: Look for style errors
-        run: pflake8
+        run: flake8 dundie
       - name: Chech for importing style
         run: isort --profile=black --check --diff dundie tests integration
       - name: Look for auto format errors
