@@ -15,7 +15,8 @@ def pytest_configure(config):
 
 """def pytest_configure(config):
     # mode funcinal
-    map(
-        lambda line: config.addinivalue_line('markers', line), MARKER.split("\n")
-    )
+map(
+lambda line: config.addinivalue_line('markers', line),
+ MARKER.split("\n")
+)
 """
