@@ -29,7 +29,7 @@ jobs:
       - name: Look for style errors
         run: pflake8
       - name: Chech for importing style
-        run: isort --profile=black --chech --diff dundie tests integration
+        run: isort --profile=black --check --diff dundie tests integration
       - name: Look for auto format errors
         run: black --check --diff dundie tests integration
 
