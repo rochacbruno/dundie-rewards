@@ -1,4 +1,4 @@
-.PHONY: install virtualenv ipython clean test fmt lint watch docs docs-serve build
+.PHONY: install virtualenv ipython clean test fmt lint pflake8 watch docs docs-serve build
 
 
 install:
@@ -13,11 +13,16 @@ virtualenv:
 ipython:
 	@.venv/bin/ipython
 
+lint:
+	@.venv/bin/flake8 dundie
 
+fmt:
+	@.venv/bin/isort dundie tests integration
+	@.venv/bin/black dundie tests integration
 
 test:
 	@.venv/bin/pytest -s --forked
-	
+
 testci:
 	@.venv/bin/pytest -v --junitxml=text-result.xml --forked
 
