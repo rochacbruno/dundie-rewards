@@ -14,12 +14,18 @@
             "name": "Gabe Lewis",
             "dept": "Director",
             "role": "Manager"
+        },
+        "joe@doe.com": {
+            "role": "Salesman",
+            "dept": "Sales",
+            "name": "Joe Doe"
         }
     },
     "balance": {
         "jim@dundiemifflin.com": 500,
         "schrute@dundiemifflin.com": 100,
-        "gabelewis@dundiemifflin.com": 100
+        "gabelewis@dundiemifflin.com": 100,
+        "joe@doe.com": 500
     },
     "movement": {
         "jim@dundiemifflin.com": [
@@ -42,6 +48,13 @@
                 "actor": "system",
                 "value": 100
             }
+        ],
+        "joe@doe.com": [
+            {
+                "date": "2022-08-08T10:43:42.685006",
+                "actor": "system",
+                "value": 500
+            }
         ]
     },
     "user": {
@@ -53,6 +66,9 @@
         },
         "gabelewis@dundiemifflin.com": {
             "password": "kIue9jUf"
+        },
+        "joe@doe.com": {
+            "password": "sgtPWhrw"
         }
     }
 }
