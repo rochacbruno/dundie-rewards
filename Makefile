@@ -16,14 +16,14 @@ ipython:
 
 
 test:
-	@.venv/bin/pytest -s
-
+	@.venv/bin/pytest -s --forked
+	
 testci:
 	@.venv/bin/pytest -v --junitxml=text-result.xml
 
 watch:
 	# @.venv/bin/ptw
-	@ls **/*.py | entr pytest
+	@ls **/*.py | entr pytest --forked
 
 
 clean:            ## Clean unused files.
