@@ -1,0 +1,58 @@
+{
+    "people": {
+        "jim@dundiemifflin.com": {
+            "name": "Jim Helpert",
+            "dept": "Sales",
+            "role": "Salesman"
+        },
+        "schrute@dundiemifflin.com": {
+            "name": "Dwight schrute",
+            "dept": "Sales",
+            "role": "Manager"
+        },
+        "gabelewis@dundiemifflin.com": {
+            "name": "Gabe Lewis",
+            "dept": "Director",
+            "role": "Manager"
+        }
+    },
+    "balance": {
+        "jim@dundiemifflin.com": 500,
+        "schrute@dundiemifflin.com": 100,
+        "gabelewis@dundiemifflin.com": 100
+    },
+    "movement": {
+        "jim@dundiemifflin.com": [
+            {
+                "date": "2022-08-08T11:42:34.559365",
+                "actor": "system",
+                "value": 500
+            }
+        ],
+        "schrute@dundiemifflin.com": [
+            {
+                "date": "2022-08-08T11:42:34.563043",
+                "actor": "system",
+                "value": 100
+            }
+        ],
+        "gabelewis@dundiemifflin.com": [
+            {
+                "date": "2022-08-08T11:42:34.563892",
+                "actor": "system",
+                "value": 100
+            }
+        ]
+    },
+    "user": {
+        "jim@dundiemifflin.com": {
+            "password": "RHlxVDQ7"
+        },
+        "schrute@dundiemifflin.com": {
+            "password": "kMlARK1g"
+        },
+        "gabelewis@dundiemifflin.com": {
+            "password": "R0Gw7WuM"
+        }
+    }
+}
