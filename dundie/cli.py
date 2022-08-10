@@ -3,7 +3,7 @@ import rich_click as click
 from rich.console import Console
 from rich.table import Table
 
-from dundie.core import load as core_load
+from dundie import core
 
 click.rich_click.USE_RICH_MARKUP = True
 click.rich_click.USE_MARKDOWN = True
@@ -37,7 +37,27 @@ def load(filepath):
     for header in headers:
         table.add_column(header, style="magenta")
 
-    result = core_load(filepath)
+    result = core.load(filepath)
+    for person in result:
+        table.add_row(*[str(value) for value in person.values()])
+
+    console = Console()
+    console.print(table)
+
+
+@main.command()
+@click.option("--dept", required=False)
+@click.option("--email", required=False)
+@click.option("--output", default=None)
+def show(**query):
+    result = core.read(**query)
+
+    if not result:
+        print("Nothing to show")
+
+    table = Table(title="[blue]Dundie Mifflin Report[/]")
+    for key in result[0]:
+        table.add_column(key.title(), style="magenta")
     for person in result:
         table.add_row(*[str(value) for value in person.values()])
 
