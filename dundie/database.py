@@ -1,3 +1,4 @@
+"""Beging database with json."""
 import json
 from datetime import datetime
 
@@ -9,7 +10,7 @@ EMPTY_DB = {"people": {}, "balance": {}, "movement": {}, "user": {}}
 
 
 def connect() -> dict:
-    """Connnects to the database, return dict data"""
+    """Connnects to the database, return dict data."""
     try:
         with open(DATABASE_PATH, "r") as database_file:
             return json.loads(database_file.read())
@@ -18,7 +19,7 @@ def connect() -> dict:
 
 
 def commit(db):
-    """Sava db back to the database file"""
+    """Sava db back to the database file."""
     if db.keys() != EMPTY_DB.keys():
         raise RuntimeError("Database Schema is invalid")
     with open(DATABASE_PATH, "w") as database_file:
@@ -26,12 +27,12 @@ def commit(db):
 
 
 def add_person(db, pk, data):
-    """Saves person data to database
+    """Save person data to database.
 
     - Email is unique (resolved by dictionary hash table)
     - If exists, update, else create
     - Set initial balance (managers = 100, others = 500)
-    - Generate a password if user is new and send_email
+    - Generate a password if user is new and send_email.
     """
     if not check_valid_email(pk):
         raise ValueError(f"{pk} is not a valid email")
@@ -51,19 +52,20 @@ def add_person(db, pk, data):
 
 
 def set_initial_password(db, pk):
-    """ "Genereted and saves password"""
+    """Genereted and saves password."""
     db["user"].setdefault(pk, {})
     db["user"][pk]["password"] = generate_simple_password(8)
     return db["user"][pk]["password"]
 
 
 def set_initial_balance(db, pk, person):
-    """Add movement and set initial balance"""
+    """Add movement and set initial balance."""
     value = 100 if person["role"] == "Manager" else 500
     add_movement(db, pk, value)
 
 
 def add_movement(db, pk, value, actor="system"):
+    """Add movements to users acount."""
     movements = db["movement"].setdefault(pk, [])
     movements.append(
         {

@@ -1,3 +1,4 @@
+"""Set config to send server email."""
 import re
 import smtplib
 from email.mime.text import MIMEText
@@ -10,11 +11,12 @@ log = get_logger()
 
 
 def check_valid_email(adress):
-    """Return True if email is valid"""
+    """Return True if email is valid."""
     return bool(re.fullmatch(regex, adress))
 
 
 def send_email(from_, to, subject, text):
+    """Connect server email packed smtplib."""
     if not isinstance(to, list):
         to = [to]
     try:

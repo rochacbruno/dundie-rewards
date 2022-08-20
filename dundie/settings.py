@@ -1,3 +1,5 @@
+"""Config environment variables to email server and path root."""
+
 import os
 
 SMTP_HOST = "localhost"

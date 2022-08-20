@@ -1,3 +1,9 @@
+"""The command line interface (also known as CLI)."""
+
+# is a means to interact with a command line script.
+
+import json
+
 import pkg_resources
 import rich_click as click
 from rich.console import Console
@@ -16,7 +22,7 @@ click.rich_click.APPEND_METAVARS_HELP = True
 @click.group()
 @click.version_option(pkg_resources.get_distribution("dundie").version)
 def main():
-    """ "Dundie Mifflin Rewards System
+    """Dundie Mifflin Rewards System.
 
     This cli application controls DM rewards.
     """
@@ -25,12 +31,13 @@ def main():
 @main.command()
 @click.argument("filepath", type=click.Path(exists=True))
 def load(filepath):
-    """Loads the file to the database.
+    """Load the file to the database.
+
     ## Features
 
-    - Validadores
-    - Parses the file
-    - Loads to database
+    . Validadores
+    . Parses the file
+    . Loads to database
     """
     table = Table(title="[blue]Dundie Mifflin Associates[/]")
     headers = ["nome", "dept", "role", "created", "e-mail"]
@@ -49,8 +56,12 @@ def load(filepath):
 @click.option("--dept", required=False)
 @click.option("--email", required=False)
 @click.option("--output", default=None)
-def show(**query):
+def show(output, **query):
+    """Show the informations about users."""
     result = core.read(**query)
+    if output:
+        with open(output, "w") as output_file:
+            output_file.write(json.dumps(result))
 
     if not result:
         print("Nothing to show")
@@ -63,3 +74,25 @@ def show(**query):
 
     console = Console()
     console.print(table)
+
+
+@main.command()
+@click.pass_context
+@click.argument("value", type=click.INT, required=True)
+@click.option("--dept", required=False)
+@click.option("--email", required=False)
+def add(ctx, value, **query):
+    """Add news users in database."""
+    core.add(value, **query)
+    ctx.invoke(show, **query)
+
+
+@main.command()
+@click.pass_context
+@click.argument("value", type=click.INT, required=True)
+@click.option("--dept", required=False)
+@click.option("--email", required=False)
+def remove(ctx, value, **query):
+    """Add news users in database."""
+    core.add(-value, **query)
+    ctx.invoke(show, **query)
