@@ -1,6 +1,10 @@
 import pytest
 
+<<<<<<< HEAD
 from dundie.database import EMPTY_DB, add_movement, add_person, commit, connect
+=======
+from dundie.database import EMPTY_DB, add_person, commit, connect
+>>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5
 
 
 @pytest.mark.unit
@@ -40,6 +44,7 @@ def test_add_person_for_the_first_time():
 def test_negative_add_person_invalid_email():
     with pytest.raises(ValueError):
         add_person({}, ".@bla", {})
+<<<<<<< HEAD
 
 
 @pytest.mark.unit
@@ -63,3 +68,5 @@ def test_add_or_remove_points_for_person():
     assert after == before - 100
     assert after == 400
     assert before == 500
+=======
+>>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5

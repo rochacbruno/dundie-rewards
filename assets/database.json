@@ -17,8 +17,13 @@
         }
     },
     "balance": {
+<<<<<<< HEAD
         "jim@dundiemifflin.com": 195,
         "schrute@dundiemifflin.com": 195,
+=======
+        "jim@dundiemifflin.com": 500,
+        "schrute@dundiemifflin.com": 100,
+>>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5
         "gabelewis@dundiemifflin.com": 100
     },
     "movement": {
@@ -27,6 +32,7 @@
                 "date": "2022-08-08T11:42:34.559365",
                 "actor": "system",
                 "value": 500
+<<<<<<< HEAD
             },
             {
                 "date": "2022-08-10T21:41:20.118603",
@@ -52,6 +58,8 @@
                 "date": "2022-08-11T21:18:48.166876",
                 "actor": "figueiredovt",
                 "value": -400
+=======
+>>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5
             }
         ],
         "schrute@dundiemifflin.com": [
@@ -59,6 +67,7 @@
                 "date": "2022-08-08T11:42:34.563043",
                 "actor": "system",
                 "value": 100
+<<<<<<< HEAD
             },
             {
                 "date": "2022-08-10T21:41:20.118626",
@@ -79,6 +88,8 @@
                 "date": "2022-08-10T21:57:52.060292",
                 "actor": "figueiredovt",
                 "value": 200
+=======
+>>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5
             }
         ],
         "gabelewis@dundiemifflin.com": [

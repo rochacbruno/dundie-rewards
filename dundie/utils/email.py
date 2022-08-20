@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 """Set config to send server email."""
+=======
+>>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5
 import re
 import smtplib
 from email.mime.text import MIMEText
@@ -11,12 +14,19 @@ log = get_logger()
 
 
 def check_valid_email(adress):
+<<<<<<< HEAD
     """Return True if email is valid."""
+=======
+    """Return True if email is valid"""
+>>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5
     return bool(re.fullmatch(regex, adress))
 
 
 def send_email(from_, to, subject, text):
+<<<<<<< HEAD
     """Connect server email packed smtplib."""
+=======
+>>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5
     if not isinstance(to, list):
         to = [to]
     try:
