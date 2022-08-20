@@ -1,4 +1,5 @@
 import pytest
+
 from dundie.utils.email import check_valid_email
 from dundie.utils.user import generate_simple_password
 
