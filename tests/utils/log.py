@@ -1,3 +1,4 @@
+"""Log the system."""
 import logging
 import os
 from logging import handlers
@@ -11,7 +12,7 @@ fmt = logging.Formatter(
 
 
 def get_logger(logfile="dundie.log"):
-
+    """Set size, level, format and log."""
     fh = handlers.RotatingFileHandler(logfile, maxBytes=300, backupCount=10)
     fh.setLevel(LOG_LEVEL)
     fh.setFormatter(fmt)
