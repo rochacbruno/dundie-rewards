@@ -1,3 +1,4 @@
+"""Test utils."""
 import pytest
 
 from dundie.utils.email import check_valid_email
