@@ -1,28 +1,17 @@
-<<<<<<< HEAD
 """Core module for dundie - (controler or base or paste load)."""
 import os
 from csv import reader
 
 from dundie.database import add_movement, add_person, commit, connect
-=======
-"""Core module for dundie - (controler or base or paste load)"""
-from csv import reader
-
-from dundie.database import add_person, commit, connect
->>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5
 from dundie.utils.log import get_logger
 
 log = get_logger()
 
 
 def load(filepath):
-<<<<<<< HEAD
-    """Load data from filepath to the database.
-
-=======
-    """Loads data from filepath to the database.
->>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5
-    #python -m doctest -v dundie/core.py
+    """Load data from filepath to the database."""
+    """
+       #python -m doctest -v dundie/core.py
 
     >>> len(load('assets/people.csv'))
     2
@@ -50,7 +39,6 @@ def load(filepath):
 
     commit(db)
     return people
-<<<<<<< HEAD
 
 
 def read(**query):
@@ -88,6 +76,5 @@ def add(value, **query):
     user = os.getenv("USER")
     for person in people:
         add_movement(db, person["email"], value, user)
+
     commit(db)
-=======
->>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5

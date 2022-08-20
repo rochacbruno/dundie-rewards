@@ -1,3 +1,4 @@
+"""Test add user in database."""
 import pytest
 
 from dundie.core import add
@@ -6,6 +7,7 @@ from dundie.database import add_person, commit, connect
 
 @pytest.mark.unit
 def test_add_movement():
+    """Test add movement of the two users."""
     pk = "joe@doe.com"
     data = {"role": "Salesman", "dept": "Sale", "name": "Joe Doe"}
     db = connect()

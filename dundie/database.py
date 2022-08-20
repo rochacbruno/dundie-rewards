@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 """Beging database with json."""
-=======
->>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5
 import json
 from datetime import datetime
 
@@ -13,11 +10,7 @@ EMPTY_DB = {"people": {}, "balance": {}, "movement": {}, "user": {}}
 
 
 def connect() -> dict:
-<<<<<<< HEAD
-    """Connnects to the database, return dict data."""
-=======
-    """Connnects to the database, return dict data"""
->>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5
+    """Connect to the database, return dict data."""
     try:
         with open(DATABASE_PATH, "r") as database_file:
             return json.loads(database_file.read())
@@ -26,11 +19,7 @@ def connect() -> dict:
 
 
 def commit(db):
-<<<<<<< HEAD
-    """Sava db back to the database file."""
-=======
-    """Sava db back to the database file"""
->>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5
+    """Save db back to the database file."""
     if db.keys() != EMPTY_DB.keys():
         raise RuntimeError("Database Schema is invalid")
     with open(DATABASE_PATH, "w") as database_file:
@@ -38,20 +27,16 @@ def commit(db):
 
 
 def add_person(db, pk, data):
-<<<<<<< HEAD
-    """Save person data to database.
-=======
-    """Saves person data to database
->>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5
-
+    """Save person data to database."""
+    """
     - Email is unique (resolved by dictionary hash table)
     - If exists, update, else create
     - Set initial balance (managers = 100, others = 500)
-<<<<<<< HEAD
+
     - Generate a password if user is new and send_email.
-=======
-    - Generate a password if user is new and send_email
->>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5
+
+
+
     """
     if not check_valid_email(pk):
         raise ValueError(f"{pk} is not a valid email")
@@ -71,31 +56,20 @@ def add_person(db, pk, data):
 
 
 def set_initial_password(db, pk):
-<<<<<<< HEAD
-    """Genereted and saves password."""
-=======
-    """ "Genereted and saves password"""
->>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5
+    """Generate and saves password."""
     db["user"].setdefault(pk, {})
     db["user"][pk]["password"] = generate_simple_password(8)
     return db["user"][pk]["password"]
 
 
 def set_initial_balance(db, pk, person):
-<<<<<<< HEAD
     """Add movement and set initial balance."""
-=======
-    """Add movement and set initial balance"""
->>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5
     value = 100 if person["role"] == "Manager" else 500
     add_movement(db, pk, value)
 
 
 def add_movement(db, pk, value, actor="system"):
-<<<<<<< HEAD
     """Add movements to users acount."""
-=======
->>>>>>> 3675e88a678e05be48a17838b5c5f4eb528f7ce5
     movements = db["movement"].setdefault(pk, [])
     movements.append(
         {
