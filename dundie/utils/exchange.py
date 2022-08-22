@@ -23,7 +23,7 @@ def get_rates(currencies: List[str]) -> Dict[str, USDRate]:
         else:
             response = httpx.get(API_BASE_URL.format(currency=currency))
             if response.status_code == 200:
-                data = response.json()["USD"]
+                data = response.json()["USD" + currency]    
                 return_data[currency] = USDRate(**data)
             else:
                 return_data[currency] = USDRate(name="api/error", high=0)
