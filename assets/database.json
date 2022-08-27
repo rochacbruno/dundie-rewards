@@ -17,8 +17,8 @@
         }
     },
     "balance": {
-        "jim@dundiemifflin.com": 800,
-        "schrute@dundiemifflin.com": 400,
+        "jim@dundiemifflin.com": 450,
+        "schrute@dundiemifflin.com": 50,
         "gabelewis@dundiemifflin.com": 100
     },
     "movement": {
@@ -32,6 +32,11 @@
                 "date": "2022-08-20T12:04:06.691829",
                 "actor": "figueiredovt",
                 "value": 300
+            },
+            {
+                "date": "2022-08-20T16:13:16.003924",
+                "actor": "figueiredovt",
+                "value": -350
             }
         ],
         "schrute@dundiemifflin.com": [
@@ -44,6 +49,11 @@
                 "date": "2022-08-20T12:04:06.691853",
                 "actor": "figueiredovt",
                 "value": 300
+            },
+            {
+                "date": "2022-08-20T16:13:16.003991",
+                "actor": "figueiredovt",
+                "value": -350
             }
         ],
         "gabelewis@dundiemifflin.com": [

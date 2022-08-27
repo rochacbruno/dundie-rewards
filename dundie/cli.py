@@ -21,8 +21,15 @@ click.rich_click.APPEND_METAVARS_HELP = True
 @click.group()
 @click.version_option(pkg_resources.get_distribution("dundie").version)
 def main():
-    """Dundie Mifflin Rewards System."""
-    """This cli application controls DM rewards."""
+    """Dundie Mifflin Rewards System.
+    This cli application controls Dunder Mifflin rewards.
+
+    . admins can load information tot he people database and
+    points.
+    . users can view reports and transfer points.
+
+
+    """
 
 
 @main.command()
