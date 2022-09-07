@@ -2,8 +2,8 @@
 # is a means to interact with a command line script.
 import json
 
-import pkg_resources
 import rich_click as click
+from pkg_resources import get_distribution  # noqa
 from rich.console import Console
 from rich.table import Table
 
@@ -19,15 +19,15 @@ click.rich_click.APPEND_METAVARS_HELP = True
 
 
 @click.group()
-@click.version_option(pkg_resources.get_distribution("dundie").version)
+@click.version_option(get_distribution("dundie").version)
 def main():
-    """Dundie Mifflin Rewards System.
+    """Dundie Mifflin Rewards System."""
+    """
     This cli application controls Dunder Mifflin rewards.
 
-    . admins can load information tot he people database and
+     admins can load information tot he people database and
     points.
     . users can view reports and transfer points.
-
 
     """
 

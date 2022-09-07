@@ -26,6 +26,8 @@ jobs:
           python-version: ${{matrix.python-version}}
       - name: Install Project
         run: pip install '.[test]'
+      - name: Typing
+        run: mypy --ignore-missing-imports dundie
       - name: Look for style errors
         run: flake8 dundie
       - name: Chech for importing style

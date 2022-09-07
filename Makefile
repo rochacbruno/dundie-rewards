@@ -1,4 +1,4 @@
-.PHONY: install virtualenv ipython clean test fmt lint pflake8 watch docs docs-serve build
+.PHONY: install virtualenv ipython clean  test fmt lint pflake8 watch docs docs-serve build publish-test publish
 
 
 install:
@@ -45,3 +45,12 @@ clean:            ## Clean unused files.
 	@rm -rf htmlcov
 	@rm -rf .tox/
 	@rm -rf docs/_build
+
+build:
+	@python setup.py sdist bdist_wheel
+
+publish-test:
+	@twine upload --repository testpypi dist/*
+
+publish:
+	@twine upload dist/*

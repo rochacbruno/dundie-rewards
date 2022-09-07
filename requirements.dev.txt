@@ -11,11 +11,14 @@ black
 isort
 flake8
 pyproject-flake8
+mypy
+types-setuptools
+
 # docs
 mkdocs
 
-flake8
-pyproject-flake8
-
+# build
+wheel
+twine
 # Install project as editable
 -e .
