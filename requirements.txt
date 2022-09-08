@@ -2,3 +2,4 @@ click
 rich
 rich-click
 pydantic
+sqlmodel

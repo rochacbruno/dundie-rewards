@@ -10,17 +10,17 @@ cmd = CliRunner()
 @pytest.mark.integration
 @pytest.mark.medium
 def test_load_positive_call_load_command():
-    """test command load"""
+    """Test command load."""
     out = cmd.invoke(load, PEOPLE_FILE)
 
-    assert "Dundie Mifflin Associates" in out.output
+    assert "Dunder Mifflin Associates" in out.output
 
 
 @pytest.mark.integration
 @pytest.mark.medium
 @pytest.mark.parametrize("wrong_command", ["loady", "carrega", "start"])
 def test_load_negative_call_load_command_with_wrong_params(wrong_command):
-    """test command load"""
+    """Test command load."""
     out = cmd.invoke(main, wrong_command, PEOPLE_FILE)
 
     assert out.output != 0

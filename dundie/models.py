@@ -1,44 +1,52 @@
 """..."""
 
 from datetime import datetime
-from decimal import Decimal
+from typing import Optional
 
-from pydantic import BaseModel, validator
+from pydantic import condecimal, validator
+from sqlmodel import Field, Relationship, SQLModel
 
-from dundie.database import connect
 from dundie.utils.email import check_valid_email
+from dundie.utils.user import generate_simple_password
 
 
-class Person(BaseModel):
-    """Class Person - Instance one person."""
+class InvalidEmailError(Exception):
+    """..."""
 
-    pk: str
-    name: str
-    dept: str
-    role: str
 
-    @validator("pk")
-    def validate_email(cls, v):
+class Person(SQLModel, table=True):
+    """..."""
+
+    id: Optional[int] = Field(default=None, primary_key=True, index=True)
+    email: str = Field(nullable=False, index=True)
+    name: str = Field(nullable=False)
+    dept: str = Field(nullable=False, index=True)
+    role: str = Field(nullable=False)
+
+    balance: "Balance" = Relationship(back_populates="person")
+    movement: "Movement" = Relationship(back_populates="person")
+    user: "User" = Relationship(back_populates="person")
+
+    @validator("email")
+    def validate_email(cls, v: str) -> str:
         """..."""
         if not check_valid_email(v):
-            raise ValueError(f"Invalid email for {v!r}")
+            raise InvalidEmailError(f"Invalid email for {v!r}")
         return v
 
     def __str__(self) -> str:
-        """Return self."""
+        """..."""
         return f"{self.name} - {self.role}"
 
 
-class Balance(BaseModel):
-    """Class Balance - show value each person."""
+class Balance(SQLModel, table=True):
+    """..."""
 
-    person: Person
-    value: Decimal
+    id: Optional[int] = Field(default=None, primary_key=True, index=True)
+    person_id: int = Field(foreign_key="person.id")
+    value: condecimal(decimal_places=3) = Field(default=0)  # type: ignore
 
-    @validator("value", pre=True)
-    def vvalue_logic(cls, v):
-        """..."""
-        return Decimal(v) * 2
+    person: Person = Relationship(back_populates="balance")
 
     class Config:
         """..."""
@@ -46,27 +54,33 @@ class Balance(BaseModel):
         json_encoders = {Person: lambda p: p.pk}
 
 
-class Movement(BaseModel):
-    """Class Movement - show movement account."""
+class Movement(SQLModel, table=True):
+    """..."""
 
-    person: Person
-    date: datetime
-    actor: str
-    value: Decimal
+    id: Optional[int] = Field(default=None, primary_key=True, index=True)
+    person_id: int = Field(foreign_key="person.id")
+    actor: str = Field(nullable=False, index=True)
+    value: condecimal(decimal_places=3) = Field(default=0)  # type: ignore
+    date: datetime = Field(default_factory=lambda: datetime.now())
+
+    person: Person = Relationship(back_populates="movement")
+
+    class Config:
+        """..."""
+
+        json_encoders = {Person: lambda p: p.pk}
 
 
-"""..."""
+class User(SQLModel, table=True):
+    """..."""
 
+    id: Optional[int] = Field(default=None, primary_key=True, index=True)
+    person_id: int = Field(foreign_key="person.id")
+    password: str = Field(default_factory=generate_simple_password)
 
-db = connect()
+    person: Person = Relationship(back_populates="user")
 
-for pk, data in db["people"].items():
-    p = Person(pk=pk, **data)
+    class Config:
+        """..."""
 
-
-print(p)
-print(p.json())
-
-balance = Balance(person=p, value=Decimal(100))
-print(balance)
-print(balance.json(models_as_dict=False))
+        json_encoders = {Person: lambda p: p.pk}
