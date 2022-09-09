@@ -3,3 +3,6 @@ rich
 rich-click
 pydantic
 sqlmodel
+alembic
+requests
+httpx

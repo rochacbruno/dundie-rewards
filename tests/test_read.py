@@ -50,7 +50,7 @@ def test_read_all_data():
     """..."""
     load(PEOPLE_FILE)
     result = read()
-    assert len(result) == 3
+    assert len(result) == 2
 
 
 @pytest.mark.unit

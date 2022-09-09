@@ -32,6 +32,7 @@ def add_person(session: Session, instance: Person):
     else:
         existing.dept = instance.dept  # type: ignore
         existing.role = instance.role  # type: ignore
+        existing.currency = instance.currency  # type: ignore
         session.add(existing)
         return instance, created
 
