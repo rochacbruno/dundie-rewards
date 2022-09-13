@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+"""Test database."""
+>>>>>>> projeto-dundie-rewards/main
 import pytest
 from sqlmodel import select
 
@@ -8,12 +12,20 @@ from dundie.utils.db import add_movement, add_person
 
 @pytest.mark.unit
 def test_ensure_database_is_test():
+<<<<<<< HEAD
+=======
+    """access_allowed()"""
+>>>>>>> projeto-dundie-rewards/main
     session = get_session()
     assert "test.db" in session.get_bind().engine.url.database
 
 
 @pytest.mark.unit
 def test_commit_to_database():
+<<<<<<< HEAD
+=======
+    """access_allowed()"""
+>>>>>>> projeto-dundie-rewards/main
     session = get_session()
     data = {
         "name": "Joe Doe",
@@ -34,6 +46,10 @@ def test_commit_to_database():
 
 @pytest.mark.unit
 def test_add_person_for_the_first_time():
+<<<<<<< HEAD
+=======
+    """access_allowed()"""
+>>>>>>> projeto-dundie-rewards/main
     data = {
         "role": "Salesman",
         "dept": "Sales",
@@ -54,12 +70,20 @@ def test_add_person_for_the_first_time():
 
 @pytest.mark.unit
 def test_negative_add_person_invalid_email():
+<<<<<<< HEAD
+=======
+    """access_allowed()"""
+>>>>>>> projeto-dundie-rewards/main
     with pytest.raises(InvalidEmailError):
         add_person({}, Person(email=".@bla"))
 
 
 @pytest.mark.unit
 def test_add_or_remove_points_for_person():
+<<<<<<< HEAD
+=======
+    """access_allowed()"""
+>>>>>>> projeto-dundie-rewards/main
     data = {
         "role": "Salesman",
         "dept": "Sales",

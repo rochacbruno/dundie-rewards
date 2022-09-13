@@ -1,0 +1,40 @@
+{
+    "telemetry.machineId": "bedd8e358238b68910242944bfc80d94094e52a525ae7597acc2b859c5a1e3f8",
+    "theme": "vs-dark",
+    "themeBackground": "#1e1e1e",
+    "windowSplash": {
+        "baseTheme": "vs-dark",
+        "colorInfo": {
+            "foreground": "#cccccc",
+            "background": "#1e1e1e",
+            "editorBackground": "#1e1e1e",
+            "titleBarBackground": "#3c3c3c",
+            "activityBarBackground": "#333333",
+            "sideBarBackground": "#252526",
+            "statusBarBackground": "#007acc",
+            "statusBarNoFolderBackground": "#68217a"
+        },
+        "layoutInfo": {
+            "sideBarSide": "left",
+            "editorPartMinWidth": 220,
+            "titleBarHeight": 30,
+            "activityBarWidth": 48,
+            "sideBarWidth": 256,
+            "statusBarHeight": 22,
+            "windowBorder": false
+        }
+    },
+    "windowsState": {
+        "lastActiveWindow": {
+            "backupPath": "\\\\wsl$\\Ubuntu-20.04\\home\\figueiredovt\\projetos\\dundle_rewards_github\\Projeto-Dundie-Rewards\\.vscodelocal\\Backups\\1656969142482",
+            "uiState": {
+                "mode": 1,
+                "x": 228,
+                "y": 22,
+                "width": 1024,
+                "height": 728
+            }
+        },
+        "openedWindows": []
+    }
+}

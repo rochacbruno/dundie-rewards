@@ -17,9 +17,17 @@ branch_labels = ${repr(branch_labels)}
 depends_on = ${repr(depends_on)}
 
 
+<<<<<<< HEAD
 def upgrade():
     ${upgrades if upgrades else "pass"}
 
 
 def downgrade():
+=======
+def upgrade() -> None:
+    ${upgrades if upgrades else "pass"}
+
+
+def downgrade() -> None:
+>>>>>>> projeto-dundie-rewards/main
     ${downgrades if downgrades else "pass"}

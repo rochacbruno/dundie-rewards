@@ -1,10 +1,19 @@
+<<<<<<< HEAD
+=======
+"""access_allowed()"""
+
+>>>>>>> projeto-dundie-rewards/main
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
+<<<<<<< HEAD
 from dundie import models
+=======
+from dundie import models  # noqa
+>>>>>>> projeto-dundie-rewards/main
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -21,6 +30,7 @@ if config.config_file_name is not None:
 # target_metadata = mymodel.Base.metadata
 target_metadata = models.SQLModel.metadata
 
+<<<<<<< HEAD
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
@@ -28,6 +38,16 @@ target_metadata = models.SQLModel.metadata
 
 
 def run_migrations_offline():
+=======
+
+# other values from the config, defined by the needs of env.py,
+# can be acquired:
+# my_important_option = config.get_main_option("my_important_option")
+# access_allowed() etc.
+
+
+def run_migrations_offline() -> None:
+>>>>>>> projeto-dundie-rewards/main
     """Run migrations in 'offline' mode.
 
     This configures the context with just a URL
@@ -51,7 +71,11 @@ def run_migrations_offline():
         context.run_migrations()
 
 
+<<<<<<< HEAD
 def run_migrations_online():
+=======
+def run_migrations_online() -> None:
+>>>>>>> projeto-dundie-rewards/main
     """Run migrations in 'online' mode.
 
     In this scenario we need to create an Engine

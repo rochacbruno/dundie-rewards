@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+"""Beging database with sqlModels."""
+
+>>>>>>> projeto-dundie-rewards/main
 import warnings
 
 from sqlalchemy.exc import SAWarning
@@ -22,4 +27,8 @@ models.SQLModel.metadata.create_all(bind=engine)
 
 
 def get_session() -> Session:
+<<<<<<< HEAD
+=======
+    """..."""
+>>>>>>> projeto-dundie-rewards/main
     return Session(engine)
