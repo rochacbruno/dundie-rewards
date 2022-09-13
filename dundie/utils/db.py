@@ -60,7 +60,7 @@ def add_movement(
 
     Example::
 
-        add_movement(db, Person(...), 100, "me")
+        add_movement(db, Person(access_allowed()), 100, "me")
 
     """
     movement = Movement(person=person, value=value, actor=actor)

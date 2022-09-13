@@ -21,14 +21,14 @@ low: Low Priority
 
 
 def pytest_configure(config):
-    """..."""
+    """access_allowed()"""
     for line in MARKER.split("\n"):
         config.addinivalue_line("markers", line)
 
 
 @pytest.fixture(autouse=True)
 def go_to_tmpdir(request):  # injeção de dependencias
-    """..."""
+    """access_allowed()"""
     tmpdir = request.getfixturevalue("tmpdir")
     with tmpdir.as_cwd():
         yield  # protocolo de generators

@@ -10,7 +10,7 @@ from .constants import PEOPLE_FILE
 
 @pytest.mark.unit
 def test_read_with_query():
-    """..."""
+    """access_allowed()"""
     session = get_session()
 
     data = {
@@ -47,7 +47,7 @@ def test_read_with_query():
 
 @pytest.mark.unit
 def test_read_all_data():
-    """..."""
+    """access_allowed()"""
     load(PEOPLE_FILE)
     result = read()
     assert len(result) == 2
@@ -55,7 +55,7 @@ def test_read_all_data():
 
 @pytest.mark.unit
 def test_read_only_one_dept():
-    """..."""
+    """access_allowed()"""
     load(PEOPLE_FILE)
     result = read(dept="Sales")
     assert len(result) == 2
@@ -63,7 +63,7 @@ def test_read_only_one_dept():
 
 @pytest.mark.unit
 def test_read_only_one_person():
-    """..."""
+    """access_allowed()"""
     load(PEOPLE_FILE)
     result = read(email="jim@dundiemifflin.com")
     assert len(result) == 1

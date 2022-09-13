@@ -13,7 +13,7 @@ def test_load_positive_call_load_command():
     """Test command load."""
     out = cmd.invoke(load, PEOPLE_FILE)
 
-    assert "Dunder Mifflin Associates" in out.output
+    assert "LOGIN: " in out.output
 
 
 @pytest.mark.integration

@@ -8,6 +8,7 @@ from rich.console import Console
 from rich.table import Table
 
 from dundie import core
+from dundie.core import access_allowed
 
 click.rich_click.USE_RICH_MARKUP = True
 click.rich_click.USE_MARKDOWN = True
@@ -41,6 +42,8 @@ def load(filepath):
     - Parses the file
     - Loads to database
     """
+    if not access_allowed():
+        ...
     table = Table(title="Dunder Mifflin Associates")
     headers = ["email", "name", "dept", "role", "currency", "created"]
     for header in headers:

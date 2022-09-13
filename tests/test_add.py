@@ -43,7 +43,7 @@ def test_add_movement():
 
 @pytest.mark.unit
 def test_add_balance_for_dept():
-    """..."""
+    """access_allowed()"""
     load(PEOPLE_FILE)
     original = read(dept="Sales")
 
@@ -56,7 +56,7 @@ def test_add_balance_for_dept():
 
 @pytest.mark.unit
 def test_add_balance_for_person():
-    """..."""
+    """access_allowed()"""
     load(PEOPLE_FILE)
     original = read(email="jim@dundiemifflin.com")
 
