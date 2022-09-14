@@ -104,10 +104,6 @@ celerybeat.pid
 # Environments
 .env
 .venv
-<<<<<<< HEAD
-=======
-.vscodelocal
->>>>>>> projeto-dundie-rewards/main
 env/
 venv/
 ENV/
@@ -131,11 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-<<<<<<< HEAD
 .vscodelocal
 *.log.*
 assets/database.db
-=======
+
 
 # logs
 *.log.*

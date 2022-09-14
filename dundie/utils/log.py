@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 """Work with logs and logs format."""
->>>>>>> projeto-dundie-rewards/main
 import logging
 import os
 from logging import handlers
@@ -18,11 +15,7 @@ fmt = logging.Formatter(
 def get_logger(
     logfile: Union[str, os.PathLike[str]] = "dundie.log"
 ) -> logging.Logger:
-<<<<<<< HEAD
-    """Returns a configured logger."""
-=======
     """Return a configured logger."""
->>>>>>> projeto-dundie-rewards/main
     # ch = logging.StreamHandler()  # Console/terminal/stderr
     # ch.setLevel(log_level)
     fh = handlers.RotatingFileHandler(

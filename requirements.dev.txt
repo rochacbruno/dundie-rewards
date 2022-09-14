@@ -1,44 +1,25 @@
 # dev dependencies
-<<<<<<< HEAD
 ipython
-=======
-black
-isort
 ipython>=7.0.0,<=8.0.0
->>>>>>> projeto-dundie-rewards/main
 ipdb
 pudb
 pytest-watch
 
-<<<<<<< HEAD
-# Code Quality
-flake8
-pyproject-flake8
-black
-isort
-=======
 # code quality
 black
 isort
 flake8
 pyproject-flake8
-mypy
-types-setuptools
->>>>>>> projeto-dundie-rewards/main
 
 # docs
 mkdocs
 
 # build
 wheel
-<<<<<<< HEAD
 
 # typing
 mypy
 types-setuptools
-
-=======
 twine
->>>>>>> projeto-dundie-rewards/main
 # Install project as editable
 -e .

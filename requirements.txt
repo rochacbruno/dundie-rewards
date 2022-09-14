@@ -4,8 +4,5 @@ rich-click
 pydantic
 sqlmodel
 alembic
-<<<<<<< HEAD
-=======
 requests
->>>>>>> projeto-dundie-rewards/main
 httpx

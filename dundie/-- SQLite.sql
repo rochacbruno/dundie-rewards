@@ -1,2 +1,2 @@
 -- SQLite
-SELECT email FROM person WHERE id='[5]'
+SELECT DISTINCT currency FROM person

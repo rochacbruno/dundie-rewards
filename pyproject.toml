@@ -1,7 +1,5 @@
-<<<<<<< HEAD
-=======
 # pyproject.toml
->>>>>>> projeto-dundie-rewards/main
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "-ra -q -vv"
@@ -10,14 +8,10 @@ testpaths = [
     "integration",
 ]
 
-<<<<<<< HEAD
 
 [tool.flake8]
 exclude = [".venv", "build", ".vscodelocal", "migrations"]
-=======
-[tool.flake8]
-exclude = [".venv", "build"]
->>>>>>> projeto-dundie-rewards/main
+
 max-line-length = 79
 # extend-ignore = "W293,"
 
@@ -35,18 +29,13 @@ exclude = '''
   | migrations
 )/
 '''
-<<<<<<< HEAD
 
-=======
->>>>>>> projeto-dundie-rewards/main
 [tool.isort]
 profile = "black"
 src_paths = ["dundie", "tests", "integration"]
 multi_line_output = 3  # VHI
-<<<<<<< HEAD
 line_length = 79
 force_grid_wrap = 0
 use_parentheses = true
 include_trailing_comma = true
-=======
->>>>>>> projeto-dundie-rewards/main
+
