@@ -77,7 +77,7 @@ class User(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True, index=True)
     person_id: int = Field(foreign_key="person.id")
     password: str = Field(default_factory=generate_simple_password)
-
+    admin: int = Field(nullable=False, default=0)
     person: Person = Relationship(back_populates="user")
 
     class Config:
