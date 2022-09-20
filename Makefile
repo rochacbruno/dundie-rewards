@@ -15,8 +15,10 @@ ipython:
 	@.venv/bin/ipython
 
 lint:
+	@.venv/bin/prospector --strictness medium
 	@.venv/bin/mypy --ignore-missing-imports dundie
-	@.venv/bin/pflake8
+	@.venv/bin/flake8
+
 
 fmt:
 	@.venv/bin/isort --profile=black -m 3 dundie tests integration

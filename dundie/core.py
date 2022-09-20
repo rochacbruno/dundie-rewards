@@ -134,7 +134,7 @@ def access_allowed():
     else:
         return False
 
-    _= access_passwd(count, id_email)
+    _ = access_passwd(count, id_email)
 
 
 def access_email():
@@ -143,7 +143,7 @@ def access_email():
         logig: str = input("LOGIN: ").strip()
         if logig != "" and logig is not None:
             id_user = session.execute(
-                f"SELECT id FROM person WHERE email='{logig}'"
+                    f"SELECT id FROM person WHERE email='{logig}'"
                 )
 
             try:
@@ -181,8 +181,8 @@ def access_passwd(count, id_acess):
             passwd = getpass.getpass("SENHA: ")
             if passwd != "" and passwd is not None:
                 id_pass = session.execute(
-                    f"SELECT person_id FROM user WHERE password='{passwd}'"
-                )
+                        f"SELECT person_id FROM user WHERE password='{passwd}'"
+                    )
                 try:
                     person_id = int("".join(map(str,
                                     [row for row in id_pass.first()]
@@ -201,7 +201,7 @@ def access_passwd(count, id_acess):
                     print(
                             "If your password is wrong,"
                             " please digit the right password!"
-                    )
+                        )
 
                     return access_passwd(count, id_acess)
             else:
