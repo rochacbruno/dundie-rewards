@@ -1,3 +1,4 @@
+"""Set config to send server email."""
 import re
 import smtplib
 from email.mime.text import MIMEText
@@ -28,7 +29,8 @@ def send_email(from_: str, to: List[str], subject: str, text: str):
             message = MIMEText(text)
             message["Subject"] = subject
             message["From"] = from_
-            message["To"] = ",".join(to)
+
+            message["To"] = "'".join(to)
             server.sendmail(from_, to, message.as_string())
     except Exception:
-        log.error("Cannot send email to %s", to)
+        log.error("You can not get email to %s", to)

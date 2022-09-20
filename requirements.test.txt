@@ -4,5 +4,12 @@ flake8
 pyproject-flake8
 black
 isort
+black
+click
+isort
+flake8>=5.0.3
+pytest
+pytest-forked
+pyproject-flake8
 mypy
 types-setuptools

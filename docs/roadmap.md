@@ -2,7 +2,11 @@
 
 Some features are not ready yet but on the roadmap for next version.
 
+<<<<<<< HEAD
 [Issues](https://github.com/rochacbruno/dundie-rewards/issues)
+=======
+[Issues](https://github.com/figueiredovt/projeto-dundie-rewards)
+>>>>>>> projeto-dundie-rewards/main
 
 ## Commands
 
@@ -31,4 +35,7 @@ to any other and will be password protected.
 
 The `history` command allow user to see his own movements, admin users can
 pass `--email=` and see anyone else movements.
+<<<<<<< HEAD
 
+=======
+>>>>>>> projeto-dundie-rewards/main

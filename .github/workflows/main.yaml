@@ -1,0 +1,60 @@
+# .github/workflows/main.yml
+name: CI
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+  workflow_dispatch:
+
+jobs:
+  lint:
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version: ['3.10']
+        os: [ubuntu-latest]
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{matrix.python-version}}
+      - name: Install Project
+        run: pip install '.[test]'
+      - name: Typing
+        run: mypy --ignore-missing-imports dundie
+      - name: Look for style errors
+        run: flake8 dundie
+      - name: Chech for importing style
+        run: isort --profile=black --check --diff dundie tests integration
+      - name: Look for auto format errors
+        run: black --check --diff dundie tests integration
+
+  tests:
+    needs: lint
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.9', '3.10']
+        os: [ubuntu-latest]
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{matrix.python-version}}
+      - name: Install Project
+        run: pip install '.[test,dev]'
+      - name: Run tests
+        run: pytest -v --junitxml=text-result.xml --forked
+      - name: publish junit results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          file: test-result.xml
+          check_name: Test Result (Python ${{matrix.python-version}})

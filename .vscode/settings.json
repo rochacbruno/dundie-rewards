@@ -1,8 +1,15 @@
 {
+<<<<<<< HEAD
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true,
     "python.formatting.provider": "black",
     "python.linting.flake8Path": "pflake8",
+=======
+    "makefile.extensionOutputFolder": "./.vscode",
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true,
+    "python.formatting.provider": "black",
+>>>>>>> projeto-dundie-rewards/main
     "activitusbar.alignment": "Right",
     "workbench.sideBar.location": "right"
 }

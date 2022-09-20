@@ -1,4 +1,5 @@
-.PHONY: install virtualenv ipython clean test pflake8 fmt lint watch docs docs-serve build
+.PHONY: install virtualenv ipython clean  test fmt lint pflake8 watch docs docs-serve build publish-test publish
+
 
 
 install:
@@ -13,17 +14,23 @@ virtualenv:
 ipython:
 	@.venv/bin/ipython
 
-
 lint:
-	#@.venv/bin/mypy --ignore-missing-imports dundie
-	@.venv/bin/pflake8
+	@.venv/bin/prospector --strictness medium
+	@.venv/bin/mypy --ignore-missing-imports dundie
+	@.venv/bin/flake8
+
 
 fmt:
 	@.venv/bin/isort --profile=black -m 3 dundie tests integration
-	@.venv/bin/black dundie tests integration
+
 
 test:
 	@.venv/bin/pytest -s --forked
+
+
+testci:
+	@.venv/bin/pytest -v --junitxml=text-result.xml --forked
+
 
 watch:
 	# @.venv/bin/ptw
@@ -52,6 +59,7 @@ docs:
 
 docs-serve:
 	@mkdocs serve
+
 
 build:
 	@python setup.py sdist bdist_wheel

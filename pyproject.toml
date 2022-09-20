@@ -1,3 +1,5 @@
+# pyproject.toml
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "-ra -q -vv"
@@ -9,6 +11,7 @@ testpaths = [
 
 [tool.flake8]
 exclude = [".venv", "build", ".vscodelocal", "migrations"]
+
 max-line-length = 79
 # extend-ignore = "W293,"
 
@@ -35,3 +38,4 @@ line_length = 79
 force_grid_wrap = 0
 use_parentheses = true
 include_trailing_comma = true
+

@@ -1,11 +1,12 @@
+"""The command line interface (also known as CLI)."""
+# is a means to interact with a command line script.
 import json
-
 import pkg_resources
 import rich_click as click
 from rich.console import Console
 from rich.table import Table
-
 from dundie import core
+from dundie.core import access_allowed
 
 click.rich_click.USE_RICH_MARKUP = True
 click.rich_click.USE_MARKDOWN = True
@@ -31,7 +32,8 @@ def main():
 @main.command()
 @click.argument("filepath", type=click.Path(exists=True))
 def load(filepath):
-    """Loads the file to the database.
+    """Load the file to the database.
+
 
     ## Features
 
@@ -39,10 +41,13 @@ def load(filepath):
     - Parses the file
     - Loads to database
     """
+    if not access_allowed():
+        ...
+
     table = Table(title="Dunder Mifflin Associates")
     headers = ["email", "name", "dept", "role", "currency", "created"]
     for header in headers:
-        table.add_column(header, style="magenta")
+        table.add_column(header.upper(), style="magenta")
 
     result = core.load(filepath)
     for person in result:
@@ -57,10 +62,10 @@ def load(filepath):
 @click.option("--email", required=False)
 @click.option("--output", default=None)
 def show(output, **query):
-    """Shows information about user or dept."""
+    """Show information about user or dept."""
     result = core.read(**query)
     if output:
-        with open(output, "w") as output_file:
+        with open(output, "w").encoding("utf-8") as output_file:
             output_file.write(json.dumps(result))
 
     if len(result) == 0:
@@ -96,6 +101,6 @@ def add(ctx, value, **query):
 @click.option("--email", required=False)
 @click.pass_context
 def remove(ctx, value, **query):
-    """Removes points from the user or dept."""
+    """Remove points from the user or dept."""
     core.add(-value, **query)
     ctx.invoke(show, **query)
