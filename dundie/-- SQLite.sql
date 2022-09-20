@@ -1,2 +1,1 @@
--- SQLite
-SELECT DISTINCT currency FROM person
+Alter table user Add admin

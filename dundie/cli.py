@@ -6,7 +6,7 @@ import pkg_resources
 import rich_click as click
 from rich.console import Console
 from rich.table import Table
-
+import sys
 from dundie import core
 from dundie.core import access_allowed
 
@@ -43,8 +43,7 @@ def load(filepath):
     - Parses the file
     - Loads to database
     """
-    if not access_allowed():
-        ...
+
     table = Table(title="Dunder Mifflin Associates")
     headers = ["email", "name", "dept", "role", "currency", "created"]
     for header in headers:
@@ -58,12 +57,14 @@ def load(filepath):
     console.print(table)
 
 
+
 @main.command()
 @click.option("--dept", required=False)
 @click.option("--email", required=False)
 @click.option("--output", default=None)
 def show(output, **query):
     """Show information about user or dept."""
+
     result = core.read(**query)
     if output:
         with open(output, "w") as output_file:

@@ -27,6 +27,7 @@ def load(filepath: str) -> ResultDict:
     >>> len(load('assets/people.csv'))
     2
     """
+
     try:
         csv_data = reader(open(filepath))
 
@@ -121,7 +122,19 @@ def access_allowed():
     """Check user is correct."""
     count: int = 0
     id_email = access_email()
-    _ = access_passwd(count, id_email)
+    with get_session() as session:
+        admin_ = session.execute(
+                            f"SELECT admin FROM user WHERE id='{id_email}'"
+                        )
+
+        admin_on = int("".join(map(str, [row for row in admin_.first()])))
+
+    if admin_on == 1:
+        return True
+    else:
+        return False
+
+    _= access_passwd(count, id_email)
 
 
 def access_email():
@@ -131,10 +144,11 @@ def access_email():
         if logig != "" and logig is not None:
             id_user = session.execute(
                 f"SELECT id FROM person WHERE email='{logig}'"
-            )
+                )
+
             try:
-                id = [row for row in id_user.first()]
-                id = int("".join(map(str, id)))
+                id = int("".join(map(str, [row for row in id_user.first()])))
+
             except TypeError:
                 print("The user doesn't exist. Please digit valid email.")
                 return access_email()
@@ -142,8 +156,8 @@ def access_email():
             print("Field empty deny permission, Please field fill.")
             return access_email()
         email = session.execute(f"SELECT email FROM person WHERE id='{id}'")
-        email1 = [row for row in email.first()]
-        email1 = "".join(map(str, email1))
+        email1 = "".join(map(str, [row for row in email.first()]))
+
         if logig == email1:
             return id
         else:
@@ -170,18 +184,23 @@ def access_passwd(count, id_acess):
                     f"SELECT person_id FROM user WHERE password='{passwd}'"
                 )
                 try:
-                    person_id = [row for row in id_pass.first()]
-                    person_id = int("".join(map(str, person_id)))
+                    person_id = int("".join(map(str,
+                                    [row for row in id_pass.first()]
+                                    )
+                                )
+                            )
+
                     _pass = session.execute(
-                        f"SELECT password FROM user "
-                        f"WHERE person_id='{person_id}'"
-                    )
-                    pass_wd = [row for row in _pass.first()]
-                    pass_wd = "".join(map(str, pass_wd))
+                            f"SELECT password FROM user "
+                            f"WHERE person_id='{person_id}'"
+                        )
+
+                    pass_wd = "".join(map(str, [row for row in _pass.first()]))
+
                 except TypeError:
                     print(
-                        "If your password is wrong,"
-                        " please digit the right password!"
+                            "If your password is wrong,"
+                            " please digit the right password!"
                     )
 
                     return access_passwd(count, id_acess)
@@ -189,8 +208,12 @@ def access_passwd(count, id_acess):
                 print("Field password is empty, Please field fill.")
                 return access_passwd(count, id_acess)
 
-        if pass_wd == passwd and id_acess == person_id:
-            print("acessando")
-        else:
-            print("You don't have access, please set your password")
-            return access_passwd(count, id_acess)
+            if pass_wd == passwd and id_acess == person_id:
+                print("acessando")
+            else:
+                print("You don't have access, speak with your adminstrator")
+                return access_passwd(count, id_acess)
+
+# permission = access_allowed if permission is False:
+# print("You don't have permission, speak with your administrator")
+# sys.exit(1)else:
