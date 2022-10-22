@@ -58,6 +58,12 @@ def load(filepath):
 @click.option("--output", default=None)
 def show(output, **query):
     """Shows information about user or dept."""
+
+    if not core.access_allowed():
+        raise core.AuthenticationError(
+            "You don't have access, please set your login."
+        )
+
     result = core.read(**query)
     if output:
         with open(output, "w") as output_file:
@@ -86,6 +92,12 @@ def show(output, **query):
 @click.pass_context
 def add(ctx, value, **query):
     """Add points to the user or dept."""
+
+    if not core.access_allowed():
+        raise core.AuthenticationError(
+            "You don't have access, please set your login."
+        )
+
     core.add(value, **query)
     ctx.invoke(show, **query)
 
@@ -97,5 +109,22 @@ def add(ctx, value, **query):
 @click.pass_context
 def remove(ctx, value, **query):
     """Removes points from the user or dept."""
+
+    if not core.access_allowed():
+        raise core.AuthenticationError(
+            "You don't have access, please set your login."
+        )
+
     core.add(-value, **query)
     ctx.invoke(show, **query)
+
+
+@main.command()
+@click.option("--email", required=True)
+@click.option("--password", prompt=True, hide_input=True)
+def login(email, password):
+    """Login to the system."""
+    person = core.login(email, password)
+    if person:
+        console = Console()
+        console.print(f"Welcome {person[0].name}!", style="bold green")
