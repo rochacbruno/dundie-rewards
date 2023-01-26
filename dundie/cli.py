@@ -6,6 +6,7 @@ from rich.console import Console
 from rich.table import Table
 
 from dundie import core
+from dundie.utils.login import require_password
 
 click.rich_click.USE_RICH_MARKUP = True
 click.rich_click.USE_MARKDOWN = True
@@ -58,25 +59,28 @@ def load(filepath):
 @click.option("--output", default=None)
 def show(output, **query):
     """Shows information about user or dept."""
-    result = core.read(**query)
-    if output:
-        with open(output, "w") as output_file:
-            output_file.write(json.dumps(result))
 
-    if len(result) == 0:
-        print("Nothing to show")
+    if require_password():
 
-    table = Table(title="Dunder Mifflin Report")
-    for key in result[0]:
-        table.add_column(key.title().replace("_", " "), style="magenta")
+        result = core.read(**query)
+        if output:
+            with open(output, "w") as output_file:
+                output_file.write(json.dumps(result))
 
-    for person in result:
-        person["value"] = f"{person['value']:.2f}"
-        person["balance"] = f"{person['balance']:.2f}"
-        table.add_row(*[str(value) for value in person.values()])
+        if len(result) == 0:
+            print("Nothing to show")
 
-    console = Console()
-    console.print(table)
+        table = Table(title="Dunder Mifflin Report")
+        for key in result[0]:
+            table.add_column(key.title().replace("_", " "), style="magenta")
+
+        for person in result:
+            person["value"] = f"{person['value']:.2f}"
+            person["balance"] = f"{person['balance']:.2f}"
+            table.add_row(*[str(value) for value in person.values()])
+
+        console = Console()
+        console.print(table)
 
 
 @main.command()
