@@ -13,3 +13,6 @@ API_BASE_URL: str = (
 ROOT_PATH: str = os.path.dirname(__file__)
 DATABASE_PATH: str = os.path.join(ROOT_PATH, "..", "assets", "database.db")
 SQL_CON_STRING = f"sqlite:///{DATABASE_PATH}"
+
+DUNDIE_ADMIN_USER: str = "michael@dundermifflin.com"
+DUNDIE_ADMIN_USER_PASSWORD: str = "qW34eRT9"
