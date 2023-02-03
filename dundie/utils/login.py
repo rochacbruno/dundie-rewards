@@ -1,13 +1,16 @@
 import getpass
 import os
+from typing import Any, Dict, List
 
 from sqlmodel import select
 
-from dundie import core
 from dundie.database import get_session
 from dundie.models import InvalidEmailError, Person, User
 from dundie.settings import DUNDIE_ADMIN_USER, DUNDIE_ADMIN_USER_PASSWORD
 from dundie.utils.email import check_valid_email
+
+Query = Dict[str, Any]
+ResultDict = List[Dict[str, Any]]
 
 
 class InvalidPasswordError(Exception):
@@ -125,7 +128,7 @@ def require_password(admin_only: bool) -> bool:
             raise AccessDeniedError("⚠️ Access Denied ⚠️")
 
 
-def handles_query_for_user(**query):
+def handles_query_for_user(function: Any, **query: Query) -> ResultDict:
     """Manipulates read data from db and filters using query
 
     read(email="joe@doe.com")
@@ -143,9 +146,9 @@ def handles_query_for_user(**query):
         ).first()
 
     if user == DUNDIE_ADMIN_USER:
-        return core.read(**query)
+        return function(**query)
     else:
         if role == "Manager":
-            return core.read(dept=dept)
+            return function(dept=dept)
         else:
-            return core.read(email=user)
+            return function(email=user)

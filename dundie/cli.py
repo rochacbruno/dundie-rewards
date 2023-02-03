@@ -63,7 +63,7 @@ def show(output, **query):
     """Shows information about user or dept."""
 
     if require_password(admin_only=False):
-        result = handles_query_for_user(**query)
+        result = handles_query_for_user(core.read, **query)
 
         if output:
             with open(output, "w") as output_file:
@@ -109,3 +109,28 @@ def remove(ctx, value, **query):
     if require_password(admin_only=True):
         core.add(-value, **query)
         ctx.invoke(show, **query)
+
+
+@main.command()
+@click.option("--dept", required=False)
+@click.option("--email", required=False)
+def movements(**query):
+    """Show moviments points from the user or dept."""
+
+    if require_password(admin_only=False):
+        result = handles_query_for_user(core.read_movements, **query)
+
+        if len(result) == 0:
+            print("Nothing to show")
+
+        table = Table(title="Dunder Mifflin Report", style="red")
+
+        for key in result[0]:
+            table.add_column(key.title().replace("_", " "), style="green")
+
+        for person in result:
+            person["value"] = f"{person['value']:.2f}"
+            table.add_row(*[str(value) for value in person.values()])
+
+        console = Console()
+        console.print(table)
