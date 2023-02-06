@@ -41,7 +41,7 @@ def test_load_negative_call_load_command_with_wrong_params(wrong_command):
     assert f"No such command '{wrong_command}'." in out.output
 
 
-@pytest.mark.unit
+@pytest.mark.integration
 def test_load_negative_admin_interaction(request):
     """Test function load function."""
 

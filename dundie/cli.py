@@ -134,3 +134,15 @@ def movements(**query):
 
         console = Console()
         console.print(table)
+
+
+@main.command()
+@click.argument("value", type=click.INT, required=True)
+@click.argument("to", type=click.STRING, required=True)
+@click.pass_context
+def transfer(ctx, value, to):
+    """Transfer points between users."""
+
+    if require_password(admin_only=False):
+        core.transfer(value, to)
+        ctx.invoke(show)
