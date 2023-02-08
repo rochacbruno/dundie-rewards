@@ -15,4 +15,7 @@ DATABASE_PATH: str = os.path.join(ROOT_PATH, "..", "assets", "database.db")
 SQL_CON_STRING = f"sqlite:///{DATABASE_PATH}"
 
 DUNDIE_ADMIN_USER: str = "michael@dundermifflin.com"
-DUNDIE_ADMIN_USER_PASSWORD: str = "qW34eRT9"
+DUNDIE_ADMIN_USER_PASSWORD: str = """gAAAAABj4a-ksOTbTEvQmMh6Gjr9tCFv4u_
+Sis0FnMiBh6ahbESAL3qb_VFn-ZNxVpcfXOJ51B5JCKXNaJ36yeyd9_3WrG0zZA=="""
+
+SECRET_KEY: bytes = b"r184HKiupQ6hbzf8zMKQXDWQkUIRddKcbkEqOt1M9RM="
