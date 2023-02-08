@@ -98,8 +98,10 @@ def test_negative_validation_user_if_exist(user):
 @pytest.mark.unit
 @pytest.mark.parametrize(
     ["user", "password"],
-    [("joe@doe.com", password_encrypt("12345678")),
-        ("jim@doe.com", password_encrypt("abcdefgh")),],
+    [
+        ("joe@doe.com", password_encrypt("12345678")),
+        ("jim@doe.com", password_encrypt("abcdefgh")),
+    ],
 )
 def test_negative_validation_password(user, password):
     """Ensure password is valid"""
