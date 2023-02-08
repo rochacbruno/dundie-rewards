@@ -8,6 +8,7 @@ from dundie.database import get_session
 from dundie.models import InvalidEmailError, Person, User
 from dundie.settings import DUNDIE_ADMIN_USER, DUNDIE_ADMIN_USER_PASSWORD
 from dundie.utils.email import check_valid_email
+from dundie.utils.user import password_decrypt, password_encrypt
 
 Query = Dict[str, Any]
 ResultDict = List[Dict[str, Any]]
@@ -53,7 +54,9 @@ def validation_password(user: str, password: str) -> bool:
     """Ensure password is correct"""
 
     if user == DUNDIE_ADMIN_USER:
-        if password == DUNDIE_ADMIN_USER_PASSWORD:
+        if password_decrypt(password) == password_decrypt(
+            DUNDIE_ADMIN_USER_PASSWORD
+        ):
             return True
         else:
             raise InvalidPasswordError(f"Invalid password for {user!r}")
@@ -67,7 +70,7 @@ def validation_password(user: str, password: str) -> bool:
             select(User.password).where(User.person_id == instance_person)
         ).first()
 
-        if instance_user == password:
+        if password_decrypt(instance_user) == password_decrypt(password):
             return True
         else:
             raise InvalidPasswordError(f"Invalid password for {user!r}")
@@ -87,7 +90,7 @@ def require_password(admin_only: bool) -> bool:
 
         if user and not password:
             if validation_user_if_exist(user):
-                password = getpass.getpass()
+                password = password_encrypt(getpass.getpass())
                 if validation_password(user, password):
                     os.environ["DUNDIE_PASSWORD"] = password
                     return True
@@ -95,7 +98,7 @@ def require_password(admin_only: bool) -> bool:
         if not user:
             user = input(str("User: "))
             if validation_user_if_exist(user):
-                password = getpass.getpass()
+                password = password_encrypt(getpass.getpass())
                 if validation_password(user, password):
                     os.environ["DUNDIE_USER"] = user
                     os.environ["DUNDIE_PASSWORD"] = password
@@ -106,12 +109,14 @@ def require_password(admin_only: bool) -> bool:
     elif admin_only:
         if user and password:
             if user == DUNDIE_ADMIN_USER:
-                if password == DUNDIE_ADMIN_USER_PASSWORD:
+                if password_decrypt(password) == password_decrypt(
+                    DUNDIE_ADMIN_USER_PASSWORD
+                ):
                     return True
 
         if user and not password:
             if user == DUNDIE_ADMIN_USER:
-                password = getpass.getpass()
+                password = password_encrypt(getpass.getpass())
                 if password == DUNDIE_ADMIN_USER_PASSWORD:
                     os.environ["DUNDIE_PASSWORD"] = password
                     return True
@@ -119,7 +124,7 @@ def require_password(admin_only: bool) -> bool:
         if not user:
             user = input(str("User: "))
             if user == DUNDIE_ADMIN_USER:
-                password = getpass.getpass()
+                password = password_encrypt(getpass.getpass())
                 if password == DUNDIE_ADMIN_USER_PASSWORD:
                     os.environ["DUNDIE_USER"] = user
                     os.environ["DUNDIE_PASSWORD"] = password

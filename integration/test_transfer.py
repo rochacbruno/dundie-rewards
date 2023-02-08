@@ -9,6 +9,7 @@ from dundie.database import get_session
 from dundie.models import Person, User
 from dundie.utils.db import add_person
 from dundie.utils.login import UserNotFoundError
+from dundie.utils.user import password_encrypt
 
 cmd = CliRunner()
 
@@ -41,13 +42,13 @@ def test_transfer_positive():
         joe_update = session.exec(
             select(User).where(User.person == instance_joe)
         ).first()
-        joe_update.password = "qWert123"
+        joe_update.password = password_encrypt("qWert123")
         session.add(joe_update)
         session.commit()
         session.refresh(joe_update)
 
         os.environ["DUNDIE_USER"] = "joe@doe.com"
-        os.environ["DUNDIE_PASSWORD"] = "qWert123"
+        os.environ["DUNDIE_PASSWORD"] = password_encrypt("qWert123")
 
         assert instance_joe.balance[0].value == 500
 
@@ -100,13 +101,13 @@ def test_transfer_negative_with_argument_wrong():
         joe_update = session.exec(
             select(User).where(User.person == instance_joe)
         ).first()
-        joe_update.password = "qWert123"
+        joe_update.password = password_encrypt("qWert123")
         session.add(joe_update)
         session.commit()
         session.refresh(joe_update)
 
         os.environ["DUNDIE_USER"] = "joe@doe.com"
-        os.environ["DUNDIE_PASSWORD"] = "qWert123"
+        os.environ["DUNDIE_PASSWORD"] = password_encrypt("qWert123")
 
         cmd.invoke(transfer, args=("100", "pam@doe.com"))
 
@@ -141,13 +142,13 @@ def test_transfer_negative_with_enough_balance():
         jim_update = session.exec(
             select(User).where(User.person == instance_jim)
         ).first()
-        jim_update.password = "qWert123"
+        jim_update.password = password_encrypt("qWert123")
         session.add(jim_update)
         session.commit()
         session.refresh(jim_update)
 
         os.environ["DUNDIE_USER"] = "jim@doe.com"
-        os.environ["DUNDIE_PASSWORD"] = "qWert123"
+        os.environ["DUNDIE_PASSWORD"] = password_encrypt("qWert123")
 
         out = cmd.invoke(transfer, args=("200", "joe@doe.com"))
 

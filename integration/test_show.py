@@ -8,6 +8,7 @@ from dundie.cli import main, show
 from dundie.database import get_session
 from dundie.models import Person, User
 from dundie.utils.db import add_person
+from dundie.utils.user import password_encrypt
 
 from .constants import DUNDIE_ADMIN_USER, DUNDIE_ADMIN_USER_PASSWORD
 
@@ -85,13 +86,13 @@ def test_show_call_show_command_with_only_infor_user():
         joe_update = session.exec(
             select(User).where(User.person == instance_joe)
         ).first()
-        joe_update.password = "qWert123"
+        joe_update.password = password_encrypt("qWert123")
         session.add(joe_update)
         session.commit()
         session.refresh(joe_update)
 
         os.environ["DUNDIE_USER"] = "joe@doe.com"
-        os.environ["DUNDIE_PASSWORD"] = "qWert123"
+        os.environ["DUNDIE_PASSWORD"] = password_encrypt("qWert123")
 
         out = cmd.invoke(show)
 
@@ -142,13 +143,13 @@ def test_show_call_show_command_with_only_infor_user_manager():
         jim_update = session.exec(
             select(User).where(User.person == instance_jim)
         ).first()
-        jim_update.password = "qWert123"
+        jim_update.password = password_encrypt("qWert123")
         session.add(jim_update)
         session.commit()
         session.refresh(jim_update)
 
         os.environ["DUNDIE_USER"] = "jim@doe.com"
-        os.environ["DUNDIE_PASSWORD"] = "qWert123"
+        os.environ["DUNDIE_PASSWORD"] = password_encrypt("qWert123")
 
         out = cmd.invoke(show)
 
