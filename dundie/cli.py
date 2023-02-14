@@ -1,11 +1,10 @@
-import json
-
 import pkg_resources
 import rich_click as click
 from rich.console import Console
 from rich.table import Table
 
 from dundie import core
+from dundie.utils.export import export_csv
 from dundie.utils.login import handles_query_for_user, require_password
 
 click.rich_click.USE_RICH_MARKUP = True
@@ -66,23 +65,35 @@ def show(output, **query):
         result = handles_query_for_user(core.read, **query)
 
         if output:
-            with open(output, "w") as output_file:
-                output_file.write(json.dumps(result))
+            export_csv(output=output, result=result)
+            console = Console()  # pragma: no cover
+            console.print(
+                f"Sucess! File saved in {output} ",
+                justify="center",
+                style="red on white",
+            )  # pragma: no cover
 
-        if len(result) == 0:
-            print("Nothing to show")
+        elif len(result) == 0:
+            # TODO: Interface in command line make too pretty
+            console = Console()
+            console.print(
+                "Nothing to show", justify="center", style="red on white"
+            )
 
-        table = Table(title="Dunder Mifflin Report")
-        for key in result[0]:
-            table.add_column(key.title().replace("_", " "), style="magenta")
+        else:
+            table = Table(title="Dunder Mifflin Report")
+            for key in result[0]:
+                table.add_column(
+                    key.title().replace("_", " "), style="magenta"
+                )
 
-        for person in result:
-            person["value"] = f"{person['value']:.2f}"
-            person["balance"] = f"{person['balance']:.2f}"
-            table.add_row(*[str(value) for value in person.values()])
+            for person in result:
+                person["value"] = f"{person['value']:.2f}"
+                person["balance"] = f"{person['balance']:.2f}"
+                table.add_row(*[str(value) for value in person.values()])
 
-        console = Console()
-        console.print(table)
+            console = Console()
+            console.print(table)
 
 
 @main.command()
@@ -121,19 +132,23 @@ def movements(**query):
         result = handles_query_for_user(core.read_movements, **query)
 
         if len(result) == 0:
-            print("Nothing to show")
+            console = Console()
+            console.print(
+                "Nothing to show", justify="center", style="red on white"
+            )
 
-        table = Table(title="Dunder Mifflin Report", style="red")
+        else:
+            table = Table(title="Dunder Mifflin Report", style="red")
 
-        for key in result[0]:
-            table.add_column(key.title().replace("_", " "), style="green")
+            for key in result[0]:
+                table.add_column(key.title().replace("_", " "), style="green")
 
-        for person in result:
-            person["value"] = f"{person['value']:.2f}"
-            table.add_row(*[str(value) for value in person.values()])
+            for person in result:
+                person["value"] = f"{person['value']:.2f}"
+                table.add_row(*[str(value) for value in person.values()])
 
-        console = Console()
-        console.print(table)
+            console = Console()
+            console.print(table)
 
 
 @main.command()

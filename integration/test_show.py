@@ -10,7 +10,12 @@ from dundie.models import Person, User
 from dundie.utils.db import add_person
 from dundie.utils.user import password_encrypt
 
-from .constants import DUNDIE_ADMIN_USER, DUNDIE_ADMIN_USER_PASSWORD
+from .constants import (
+    DUNDIE_ADMIN_USER,
+    DUNDIE_ADMIN_USER_PASSWORD,
+    TEST_PATH_OUTPUT,
+    TEST_PATH_OUTPUT_ERROR,
+)
 
 cmd = CliRunner()
 
@@ -167,3 +172,90 @@ def test_show_negative_call_show_command_with_wrong_params(wrong_command):
     out = cmd.invoke(main, wrong_command)
     assert out.exit_code != 0
     assert f"No such command '{wrong_command}'." in out.output
+
+
+@pytest.mark.integration
+def test_show_call_show_empty():
+    """test command show, call show when empty"""
+
+    os.environ["DUNDIE_USER"] = DUNDIE_ADMIN_USER
+    os.environ["DUNDIE_PASSWORD"] = DUNDIE_ADMIN_USER_PASSWORD
+
+    out = cmd.invoke(show)
+
+    assert out.exit_code == 0
+    assert "Nothing to show" in out.output
+
+
+@pytest.mark.integration
+def test_show_positive_call_show_option_output():
+    """test command show call show with option output"""
+
+    with get_session() as session:
+        joe = {
+            "email": "joe@doe.com",
+            "name": "Joe Doe",
+            "dept": "Sales",
+            "role": "Salesman",
+        }
+
+        instance_joe = Person(**joe)
+        _, created = add_person(session=session, instance=instance_joe)
+        assert created is True
+
+        jim = {
+            "email": "jim@doe.com",
+            "name": "Jim Doe",
+            "dept": "Management",
+            "role": "Manager",
+        }
+
+        instance_jim = Person(**jim)
+        _, created = add_person(session=session, instance=instance_jim)
+        assert created is True
+
+        session.commit()
+
+        os.environ["DUNDIE_USER"] = DUNDIE_ADMIN_USER
+        os.environ["DUNDIE_PASSWORD"] = DUNDIE_ADMIN_USER_PASSWORD
+
+        out = cmd.invoke(show, args=("--output", TEST_PATH_OUTPUT))
+
+        assert out.exit_code == 0
+        assert "Sucess! File saved in" in out.output
+
+
+@pytest.mark.integration
+def test_show_negative_call_show_option_output():
+    """test command negative show call show with option output"""
+
+    with get_session() as session:
+        joe = {
+            "email": "joe@doe.com",
+            "name": "Joe Doe",
+            "dept": "Sales",
+            "role": "Salesman",
+        }
+
+        instance_joe = Person(**joe)
+        _, created = add_person(session=session, instance=instance_joe)
+        assert created is True
+
+        jim = {
+            "email": "jim@doe.com",
+            "name": "Jim Doe",
+            "dept": "Management",
+            "role": "Manager",
+        }
+
+        instance_jim = Person(**jim)
+        _, created = add_person(session=session, instance=instance_jim)
+        assert created is True
+
+        session.commit()
+
+        os.environ["DUNDIE_USER"] = DUNDIE_ADMIN_USER
+        os.environ["DUNDIE_PASSWORD"] = DUNDIE_ADMIN_USER_PASSWORD
+
+        cmd.invoke(show, args=("--output", TEST_PATH_OUTPUT_ERROR))
+        assert NotADirectoryError

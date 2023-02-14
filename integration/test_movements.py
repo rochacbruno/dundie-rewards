@@ -169,3 +169,16 @@ def test_movements_negative_call_movements_command_with_wrong_params(
     out = cmd.invoke(main, wrong_command)
     assert out.exit_code != 0
     assert f"No such command '{wrong_command}'." in out.output
+
+
+@pytest.mark.integration
+def test_movements_call_movements_empty():
+    """test command movements, call movements when empty"""
+
+    os.environ["DUNDIE_USER"] = DUNDIE_ADMIN_USER
+    os.environ["DUNDIE_PASSWORD"] = DUNDIE_ADMIN_USER_PASSWORD
+
+    out = cmd.invoke(movements)
+
+    assert out.exit_code == 0
+    assert "Nothing to show" in out.output

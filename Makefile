@@ -1,4 +1,4 @@
-.PHONY: install virtualenv ipython clean test pflake8 fmt lint watch docs docs-serve build
+.PHONY: install virtualenv ipython clean test pflake8 fmt lint watch docs docs-serve build code-coverage
 
 
 install:
@@ -24,6 +24,9 @@ fmt:
 
 test:
 	@.venv/bin/pytest -s --forked
+
+code-coverage:
+	@.venv/bin/pytest --cov-report html --cov .
 
 watch:
 	# @.venv/bin/ptw
