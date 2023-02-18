@@ -1,37 +1,31 @@
-.PHONY: install virtualenv ipython clean test pflake8 fmt lint watch docs docs-serve build code-coverage
-
+# Makefile
+.PHONY: install update ipython clean test pflake8 fmt lint watch docs docs-serve build publish code-coverage
 
 install:
-	@echo "Installing for dev environment"
-	@.venv/bin/python -m pip install -e '.[test,dev]'
+	@poetry install
 
-
-virtualenv:
-	@python -m venv .venv
-
-
-ipython:
-	@.venv/bin/ipython
-
-
-lint:
-	#@.venv/bin/mypy --ignore-missing-imports dundie
-	@.venv/bin/pflake8
-
-fmt:
-	@.venv/bin/isort --profile=black -m 3 dundie tests integration
-	@.venv/bin/black dundie tests integration
+update:
+	@poetry update
 
 test:
-	@.venv/bin/pytest -s --forked
+	@poetry run pytest -s --forked
 
 code-coverage:
-	@.venv/bin/pytest --cov-report html --cov .
+	@poetry run pytest --cov-report html --cov . 
 
 watch:
-	# @.venv/bin/ptw
+	#@poetry run ptw
 	@ls **/*.py | entr pytest --forked
 
+ipython:
+	@poetry run ipython
+
+lint:
+	@poetry run pflake8
+
+fmt:
+	@poetry run isort dundie tests integration
+	@poetry run black dundie tests integration
 
 clean:            ## Clean unused files.
 	@find ./ -name '*.pyc' -exec rm -f {} \;
@@ -48,19 +42,14 @@ clean:            ## Clean unused files.
 	@rm -rf .tox/
 	@rm -rf docs/_build
 
-
 docs:
 	@mkdocs build --clean
-
 
 docs-serve:
 	@mkdocs serve
 
 build:
-	@python setup.py sdist bdist_wheel
-
-publish-test:
-	@twine upload --repository testpypi dist/*
+	@poetry build
 
 publish:
-	@twine upload dist/*
+	@poetry publish

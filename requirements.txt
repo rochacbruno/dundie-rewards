@@ -1,8 +1,0 @@
-click
-rich
-rich-click
-pydantic
-sqlmodel
-alembic
-httpx
-cryptography
