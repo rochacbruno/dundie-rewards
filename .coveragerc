@@ -1,0 +1,11 @@
+[run]
+omit =
+    # omit anything in a .local directory anywhere
+    */.local/*
+    # omit everything in /usr
+    /usr/*
+    # omit this single file
+    ./setup.py
+    dundie/testeteste.py
+    dundie/__init__.py
+    dundie/__main__.py

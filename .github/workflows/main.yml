@@ -1,6 +1,7 @@
+# .github/workflows/main.yml
 name: CI
 
-on:
+on: 
   push:
     branches:
       - "main"
@@ -19,21 +20,31 @@ jobs:
         python-version: ['3.10']
         os: [ubuntu-latest]
     runs-on: ${{matrix.os}}
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v2
         with:
-          python-version: ${{matrix.python-version}}
-      - name: Install Project
-        run: pip install '.[test]'
-      # - name: Typing
-      #   run: mypy --ignore-missing-imports dundie
+          python-version: ${{matrix.python-version}} 
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+
+      - name: Install Project 
+        run: poetry install
+
       - name: Look for style errors
-        run: pflake8
-      - name: Check for importing style
-        run: isort --profile=black -m 3 --check --diff dundie tests integration
+        run: poetry run pflake8
+
+      - name: Check for in importing style
+        run: poetry run isort --profile=black  dundie tests integration
+
       - name: Look for auto format errors
-        run: black --check --diff dundie tests integration
+        run: poetry run black --check --diff dundie tests integration
 
   tests:
     needs: lint
@@ -43,15 +54,26 @@ jobs:
         python-version: ['3.9', '3.10']
         os: [ubuntu-latest]
     runs-on: ${{matrix.os}}
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v2      
         with:
           python-version: ${{matrix.python-version}}
-      - name: Install Project
-        run: pip install '.[test]'
-      - name: Run tests
-        run: pytest -v --forked --junitxml=test-result.xml
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+
+      - name: Install Project 
+        run: poetry install
+
+      - name: Run tests         
+        run: poetry run pytest -v --forked --junitxml=test-result.xml
+
       - name: publish junit results
         uses: EnricoMi/publish-unit-test-result-action@v1
         if: always()

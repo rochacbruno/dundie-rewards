@@ -1,16 +1,18 @@
 """Core module of dundie"""
 import os
 from csv import reader
+from decimal import Decimal
 from typing import Any, Dict, List
 
 from sqlmodel import select
 
 from dundie.database import get_session
-from dundie.models import Person
+from dundie.models import Balance, Movement, Person
 from dundie.settings import DATEFMT
 from dundie.utils.db import add_movement, add_person
 from dundie.utils.exchange import get_rates
 from dundie.utils.log import get_logger
+from dundie.utils.login import validation_user_if_exist
 
 log = get_logger()
 Query = Dict[str, Any]
@@ -53,21 +55,23 @@ def read(**query: Query) -> ResultDict:
     """
     query = {k: v for k, v in query.items() if v is not None}
     return_data = []
-
     query_statements = []
+
     if "dept" in query:
         query_statements.append(Person.dept == query["dept"])
     if "email" in query:
         query_statements.append(Person.email == query["email"])
-    sql = select(Person)  # SELECT FROM PERSON
+    sql = select(Person)
     if query_statements:
-        sql = sql.where(*query_statements)  # WHERE ...
+        sql = sql.where(*query_statements)
 
     with get_session() as session:
+        # obtemos toda as currencies existentes ["BRL", "USD", "EUR"]
         currencies = session.exec(
             select(Person.currency).distinct(Person.currency)
         )
         rates = get_rates(currencies)
+
         results = session.exec(sql)
         for person in results:
             total = rates[person.currency].value * person.balance[0].value
@@ -94,7 +98,11 @@ def add(value: int, **query: Query):
         raise RuntimeError("Not Found")
 
     with get_session() as session:
-        user = os.getenv("USER")
+        user = (
+            os.getenv("DUNDIE_USER")
+            if os.getenv("DUNDIE_USER")
+            else os.getenv("USER")
+        )
         for person in people:
             instance = session.exec(
                 select(Person).where(Person.email == person["email"])
@@ -102,3 +110,59 @@ def add(value: int, **query: Query):
             add_movement(session, instance, value, user)
 
         session.commit()
+
+
+def read_movements(**query: Query) -> ResultDict:
+    """Read data from db and filters using query
+
+    read(email="joe@doe.com")
+    """
+    query = {k: v for k, v in query.items() if v is not None}
+    return_data = []
+    query_statements = []
+
+    if "dept" in query:
+        query_statements.append(Person.dept == query["dept"])
+    if "email" in query:
+        query_statements.append(Person.email == query["email"])
+    sql = select(Movement).join(Person)
+    if query_statements:
+        sql = sql.where(*query_statements)
+
+    with get_session() as session:
+        results = session.exec(sql)
+        for movement in results:
+            return_data.append(
+                {
+                    "name": movement.person,
+                    "Date": movement.date.strftime(DATEFMT),
+                    **movement.dict(exclude={"id", "date", "person_id"}),
+                }
+            )
+    return return_data
+
+
+def transfer(value: int, to: str) -> str:
+    """Transfer points between users.
+
+    Example::
+    dundie transfer 100 pam@dm.com
+    """
+
+    user = os.getenv("DUNDIE_USER")
+
+    with get_session() as session:
+        balance = session.exec(
+            select(Balance.value).join(Person).where(Person.email == user)
+        ).first()
+
+        if validation_user_if_exist(to):
+            if Decimal(value) <= balance:
+                add(-value, email=user)
+                add(value, email=to)
+
+                print("Points transferred successfully\n")
+                print(f">> {user} transferred {to} <<\n")
+
+            else:
+                print("Falied! User does not have enough balance!\n")

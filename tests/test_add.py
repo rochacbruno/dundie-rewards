@@ -62,3 +62,9 @@ def test_add_balance_for_person():
     modified = read(email="jim@dundlermifflin.com")
     for index, person in enumerate(modified):
         assert person["balance"] == original[index]["balance"] - 30
+
+
+@pytest.mark.unit
+def test_add_movement_negative_query_empty():
+    with pytest.raises(RuntimeError):
+        add(-30, email="joe@doe.com")
