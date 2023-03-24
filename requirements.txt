@@ -2,6 +2,7 @@ click
 rich
 rich-click
 pydantic
+sqlalchemy==1.4.35
 sqlmodel
 alembic
 httpx
