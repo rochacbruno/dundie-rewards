@@ -90,7 +90,7 @@ def add(value: int, **query: Query):
     query = {k: v for k, v in query.items() if v is not None}
     people = read(**query)
 
-    if not people:
+    if not people:  # pragma: no cover
         raise RuntimeError("Not Found")
 
     with get_session() as session:

@@ -17,3 +17,11 @@ def test_load_positive_has_2_people(request):
 def test_load_positive_first_name_starts_with_j(request):
     """Test function load function."""
     assert load(PEOPLE_FILE)[0]["name"] == "Jim Halpert"
+
+
+@pytest.mark.unit
+@pytest.mark.high
+def test_negative_filenotfound(request):
+    """Test function load function."""
+    with pytest.raises(FileNotFoundError):
+        load("assets/invalid.csv")
