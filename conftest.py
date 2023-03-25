@@ -1,9 +1,11 @@
+from io import StringIO
 import warnings
 import pytest
 from unittest.mock import patch
 from sqlmodel import create_engine
 from dundie import models
 from sqlalchemy.exc import SAWarning
+from decouple import Config, RepositoryEnv
 
 
 warnings.filterwarnings("ignore", category=SAWarning)
@@ -16,6 +18,12 @@ high: High Priority
 medium: Medium Priority
 low: Low Priority
 """
+
+ENVFILE = '''
+DUNDIE_USER=True
+DUNDIE_PASSWORD=True
+DUNDIE_FALSE=False
+'''
 
 
 def pytest_configure(config):
@@ -41,3 +49,21 @@ def setup_testing_database(request):
     models.SQLModel.metadata.create_all(bind=engine)
     with patch("dundie.database.engine", engine):
         yield
+
+
+@pytest.fixture(autouse=True, scope="function")
+def setup_testing_env(request):
+    """For each test, set the environment variable
+    to an empty string.
+    """
+    tmpdir = request.getfixturevalue("tmpdir")
+    test_env = str(tmpdir.join("env.test"))
+    with patch("dundie.core.VAR_ENV", test_env):
+        yield
+
+
+@pytest.fixture(scope="module")
+def config():
+    with patch('decouple.open', return_value=StringIO(ENVFILE), create=True):
+        return Config(RepositoryEnv('.env'))
+#

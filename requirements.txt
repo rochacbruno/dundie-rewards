@@ -6,3 +6,4 @@ sqlalchemy==1.4.35
 sqlmodel
 alembic
 httpx
+python-decouple
