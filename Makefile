@@ -23,11 +23,16 @@ fmt:
 	@.venv/bin/black dundie tests integration
 
 test:
-	@.venv/bin/pytest -s --forked
+	@.venv/bin/pytest -s --cov=dundie --forked
+	@.venv/bin/coverage xml
+	@.venv/bin/coverage html
 
 watch:
 	# @.venv/bin/ptw
-	@ls **/*.py | entr pytest --forked
+	@ls **/*.py | entr pytest --cov=dundie --forked
+	@.venv/bin/coverage xml
+	@.venv/bin/coverage html
+
 
 
 clean:            ## Clean unused files.
