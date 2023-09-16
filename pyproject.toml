@@ -1,3 +1,39 @@
+[project]
+name="dundie"
+description="Reward Point System for Dunder Mifflin"
+authors = [
+    {name = "Bruno Rocha", email = "Bruno@rocha.com"}
+]
+requires-python=">=3.11"
+license = {text = "MIT"}
+dynamic = ["version", "readme", "dependencies", "optional-dependencies"]
+
+[project.urls]
+Homepage = 'https://dundermifflin.com'
+Source = 'https://github.com/dm/dundie'
+
+[project.scripts]
+dundie = "dundie.__main__:main"
+
+[build-system]
+requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
+build-backend = 'setuptools.build_meta'
+
+[tool.setuptools]
+packages = ["dundie"]
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.md"]}
+dependencies = {file = "requirements.txt"}
+
+[tool.setuptools.dynamic.optional-dependencies]
+dev = {file = "requirements.dev.txt"}
+test = {file = "requirements.test.txt"}
+
+[tool.setuptools_scm]
+write_to = "dundie/VERSION.txt"
+
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "-ra -q -vv"
@@ -5,7 +41,6 @@ testpaths = [
     "tests",
     "integration",
 ]
-
 
 [tool.flake8]
 exclude = [".venv", "build", ".vscodelocal", "migrations"]
