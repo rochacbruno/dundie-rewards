@@ -53,21 +53,23 @@ def read(**query: Query) -> ResultDict:
     """
     query = {k: v for k, v in query.items() if v is not None}
     return_data = []
-
     query_statements = []
+
     if "dept" in query:
         query_statements.append(Person.dept == query["dept"])
     if "email" in query:
         query_statements.append(Person.email == query["email"])
-    sql = select(Person)  # SELECT FROM PERSON
+    sql = select(Person)
     if query_statements:
-        sql = sql.where(*query_statements)  # WHERE ...
+        sql = sql.where(*query_statements)
 
     with get_session() as session:
+        # obtemos toda as currencies existentes ["BRL", "USD", "EUR"]
         currencies = session.exec(
             select(Person.currency).distinct(Person.currency)
         )
         rates = get_rates(currencies)
+
         results = session.exec(sql)
         for person in results:
             total = rates[person.currency].value * person.balance[0].value
