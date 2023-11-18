@@ -1,5 +1,4 @@
 """Core module of dundie"""
-import os
 from csv import reader
 from typing import Any, Dict, List
 
@@ -8,6 +7,7 @@ from sqlmodel import select
 from dundie.database import get_session
 from dundie.models import Person
 from dundie.settings import DATEFMT
+from dundie.utils.auth import requires_auth
 from dundie.utils.db import add_movement, add_person
 from dundie.utils.exchange import get_rates
 from dundie.utils.log import get_logger
@@ -85,7 +85,8 @@ def read(**query: Query) -> ResultDict:
     return return_data
 
 
-def add(value: int, **query: Query):
+@requires_auth
+def add(value: int, from_person: Person, **query: Query):
     """Add value to each record on query"""
     query = {k: v for k, v in query.items() if v is not None}
     people = read(**query)
@@ -93,12 +94,27 @@ def add(value: int, **query: Query):
     if not people:  # pragma: no cover
         raise RuntimeError("Not Found")
 
+    total = len(people) * value
+    if from_person.balance[0].value < total and not from_person.superuser:
+        raise RuntimeError(f"Not enough balance to transfer {total}")
+
     with get_session() as session:
-        user = os.getenv("USER")
         for person in people:
             instance = session.exec(
                 select(Person).where(Person.email == person["email"])
             ).first()
-            add_movement(session, instance, value, user)
+            add_movement(session, instance, value, from_person.email)
+
+            if not from_person.superuser:
+                from_instance = session.exec(
+                    select(Person).where(Person.email == from_person.email)
+                ).first()
+                # TODO: Here be the dragons!! BUG
+                add_movement(
+                    session,
+                    from_instance,
+                    -abs(value),
+                    person["email"],
+                )
 
         session.commit()
