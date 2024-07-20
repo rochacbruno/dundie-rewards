@@ -1,4 +1,4 @@
 click
 rich
 rich-click
-pydantic
+pydantic<2.0
