@@ -1,7 +1,7 @@
 click
 rich
 rich-click
-pydantic
+pydantic<2.0
 sqlalchemy==1.4.35
 sqlmodel
 alembic
