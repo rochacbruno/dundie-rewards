@@ -2,4 +2,5 @@ click
 rich
 rich-click
 sqlalchemy==1.4.35
-pydantic
+pydantic<2.0
+sqlmodel
