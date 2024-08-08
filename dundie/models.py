@@ -26,6 +26,11 @@ class Person(SQLModel, table=True):
     movement: "Movement" = Relationship(back_populates="person")
     user: "User" = Relationship(back_populates="person")
 
+    @property
+    def superuser(self):
+        # TODO: campo, verificacao em uma tabela RBAC
+        return self.email.split("@")[0] in ("schrute", "scott")
+
     @validator("email")
     def validate_email(cls, v: str) -> str:
         if not check_valid_email(v):
