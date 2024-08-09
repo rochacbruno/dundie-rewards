@@ -9,8 +9,7 @@ from dundie.models import Person
 from dundie.utils.user import verify_password
 
 
-class AuthError(Exception):
-    ...
+class AuthError(Exception): ...
 
 
 def requires_auth(f):
