@@ -1,4 +1,5 @@
 """Core module of dundie"""
+
 from csv import reader
 from typing import Any, Dict, List
 

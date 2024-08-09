@@ -6,3 +6,5 @@ sqlalchemy==1.4.35
 sqlmodel
 alembic
 httpx
+setuptools
+pwdlib[argon2]
