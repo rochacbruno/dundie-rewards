@@ -14,4 +14,6 @@ ROOT_PATH: str = os.path.dirname(__file__)
 DATABASE_PATH: str = os.path.join(ROOT_PATH, "..", "assets", "database.db")
 SQL_CON_STRING = f"sqlite:///{DATABASE_PATH}"
 
-SALT_KEY = "zx70WB2OhhzAMYD6VaDLZqpF3F77hOpDscExC8sIKx0RwZuok_KBg-L5RRyM4rN9VuU"
+SALT_KEY = (
+    "zx70WB2OhhzAMYD6VaDLZqpF3F77hOpDscExC8sIKx0RwZuok_KBg-L5RRyM4rN9VuU"
+)

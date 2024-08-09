@@ -1,8 +1,11 @@
 import pytest
 
 from dundie.utils.email import check_valid_email
-from dundie.utils.user import generate_simple_password
-from dundie.utils.user import get_password_hash, verify_password
+from dundie.utils.user import (
+    generate_simple_password,
+    get_password_hash,
+    verify_password,
+)
 
 
 @pytest.mark.unit

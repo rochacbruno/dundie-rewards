@@ -1,6 +1,8 @@
 from random import sample
 from string import ascii_letters, digits
+
 from pwdlib import PasswordHash
+
 from ..settings import SALT_KEY
 
 pwd_context = PasswordHash.recommended()
