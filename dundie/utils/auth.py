@@ -6,6 +6,7 @@ from sqlmodel import select
 
 from dundie.database import get_session
 from dundie.models import Person
+from dundie.utils.user import verify_password
 
 
 class AuthError(Exception):
@@ -36,8 +37,7 @@ def requires_auth(f):
             if not person:
                 raise AuthError("User desn't exist")
 
-            # TODO: in future we are going to encrypt.
-            if person.user[0].password != password:
+            if not verify_password(password, person.user[0].password):
                 raise AuthError("Authentication Error")
 
         # dependency injection

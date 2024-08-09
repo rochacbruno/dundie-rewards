@@ -8,6 +8,23 @@ from dundie.utils.db import add_person
 from .constants import PEOPLE_FILE
 
 
+@pytest.fixture(scope="function", autouse=True)
+def auth(monkeypatch):
+    with get_session() as session, monkeypatch.context() as ctx:
+        data = {
+            "role": "Manager",
+            "dept": "Management",
+            "name": "Michael Scott",
+            "email": "scott@dm.com",
+        }
+        password = "1234"
+        person, _ = add_person(session, Person(**data), password)
+        ctx.setenv("DUNDIE_EMAIL", person.email)
+        ctx.setenv("DUNDIE_PASSWORD", password)
+        session.commit()
+        yield
+
+
 @pytest.mark.unit
 def test_add_movement():
     with get_session() as session:
