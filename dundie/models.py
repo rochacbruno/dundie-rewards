@@ -8,8 +8,7 @@ from dundie.utils.email import check_valid_email
 from dundie.utils.user import generate_simple_password
 
 
-class InvalidEmailError(Exception):
-    ...
+class InvalidEmailError(Exception): ...
 
 
 class Person(SQLModel, table=True):
@@ -45,7 +44,7 @@ class Balance(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True, index=True)
     person_id: int = Field(
         foreign_key="person.id",
-        sa_column_kwargs={"unique": True}
+        sa_column_kwargs={"unique": True},
         # there is only one balance for each person
     )
     value: condecimal(decimal_places=3) = Field(default=0)

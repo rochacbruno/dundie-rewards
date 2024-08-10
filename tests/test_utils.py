@@ -1,7 +1,11 @@
 import pytest
 
 from dundie.utils.email import check_valid_email
-from dundie.utils.user import generate_simple_password
+from dundie.utils.user import (
+    generate_simple_password,
+    get_password_hash,
+    verify_password,
+)
 
 
 @pytest.mark.unit
@@ -30,3 +34,11 @@ def test_generate_simple_password():
         passwords.append(generate_simple_password(8))
 
     assert len(set(passwords)) == 100
+
+
+@pytest.mark.unit
+def test_password_hash():
+    password = "batatinha123"
+    hashed = get_password_hash(password)
+    assert hashed != password
+    assert verify_password(password, hashed)
