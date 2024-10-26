@@ -59,7 +59,9 @@ jobs:
       #   run: uv sync --all-extras --dev
 
       - name: Run tests
-        run: uv run --extra test pytest -v --cov=dundie --forked --junitxml=test-result.xml && coverage xml
+        run: |
+          uv run --extra test pytest -v --cov=dundie --forked --junitxml=test-result.xml
+          uv run --extra test coverage xml
 
       - name: "Upload coverage to Codecov"
         if: ${{ matrix.python-version == '3.10' }}
