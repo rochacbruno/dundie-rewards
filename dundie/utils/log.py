@@ -12,7 +12,7 @@ fmt = logging.Formatter(
 
 
 def get_logger(
-    logfile: Union[str, os.PathLike[str]] = "dundie.log"
+    logfile: Union[str, os.PathLike[str]] = "dundie.log",
 ) -> logging.Logger:
     """Returns a configured logger."""
     # ch = logging.StreamHandler()  # Console/terminal/stderr
