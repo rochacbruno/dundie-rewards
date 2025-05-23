@@ -63,7 +63,7 @@ def show(output, asjson, **query):
     if output:
         with open(output, "w") as output_file:
             output_file.write(json.dumps(result))
-    
+
     if asjson:
         print(json.dumps(result, default=str))
         return
@@ -82,8 +82,6 @@ def show(output, asjson, **query):
 
     console = Console()
     console.print(table)
-
-
 
 
 @main.command()
@@ -115,25 +113,25 @@ def remove(ctx, value, **query):
 def list(email, output, asjson):
     """List all transactions for a user by email."""
     result = core.get_transactions(email)
-    
+
     if output:
         with open(output, "w") as output_file:
             output_file.write(json.dumps(result))
-    
+
     if asjson:
         print(json.dumps(result, default=str))
         return
-        
+
     if len(result) == 0:
         print(f"No transactions found for {email}")
         return
-        
+
     table = Table(title=f"Transaction History for {email}")
     for key in result[0]:
         table.add_column(key.title().replace("_", " "), style="magenta")
-        
+
     for transaction in result:
         table.add_row(*[str(value) for value in transaction.values()])
-        
+
     console = Console()
     console.print(table)

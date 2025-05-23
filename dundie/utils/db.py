@@ -84,12 +84,16 @@ def add_movement(
 
     """
     if person and not person.id:
-        person = session.exec(select(Person).where(Person.email == person.email)).first()
+        person = session.exec(
+            select(Person).where(Person.email == person.email)
+        ).first()
 
     movement = Movement(person_id=person.id, value=value, actor=actor)
     session.add(movement)
 
-    movements = session.exec(select(Movement).where(Movement.person_id == person.id))
+    movements = session.exec(
+        select(Movement).where(Movement.person_id == person.id)
+    )
 
     total = sum([mov.value for mov in movements])
 

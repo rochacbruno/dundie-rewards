@@ -79,7 +79,9 @@ def read(**query: Query) -> ResultDict:
                     # "last_movement": person.movement.date.strftime(
                     #     DATEFMT
                     # ),
-                    "last_movement": person.latest_movement(session).date.strftime(DATEFMT),
+                    "last_movement": person.latest_movement(
+                        session
+                    ).date.strftime(DATEFMT),
                     **person.dict(exclude={"id"}),
                     **{"value": total},
                 }
@@ -124,21 +126,23 @@ def add(value: int, from_person: Person, **query: Query):
 
 def get_transactions(email: str) -> ResultDict:
     """Get all transactions for a user by email
-    
+
     Returns a list of movement records for the specified user
     """
     with get_session() as session:
         person = session.exec(
             select(Person).where(Person.email == email)
         ).first()
-        
+
         if not person:
             return []
-            
+
         movements = session.exec(
-            select(Movement).where(Movement.person_id == person.id).order_by(Movement.date.desc())
+            select(Movement)
+            .where(Movement.person_id == person.id)
+            .order_by(Movement.date.desc())
         ).all()
-        
+
         return [
             {
                 "date": movement.date.strftime(DATEFMT),
@@ -147,7 +151,7 @@ def get_transactions(email: str) -> ResultDict:
                 "email": person.email,
                 "name": person.name,
                 "dept": person.dept,
-                "role": person.role
+                "role": person.role,
             }
             for movement in movements
         ]
