@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        python-version: ['3.10']
+        python-version: ['3.13']
         os: [ubuntu-latest]
     runs-on: ${{matrix.os}}
     steps:
@@ -24,23 +24,24 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: ${{matrix.python-version}}
-      - name: Install Project
-        run: pip install '.[test]'
-      # - name: Typing
-      #   run: mypy --ignore-missing-imports dundie
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Install the project
+        run: uv sync --all-extras --dev
+
       - name: Look for style errors
-        run: pflake8
+        run: uv run task lint
+
       - name: Check for importing style
-        run: isort --profile=black -m 3 --check --diff dundie tests integration
-      - name: Look for auto format errors
-        run: black --check --diff dundie tests integration
+        run: uvx ruff format --diff dundie tests integration
 
   tests:
     needs: lint
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.9', '3.10', '3.11']
+        python-version: ['3.10', '3.11', '3.13']
         os: [ubuntu-latest]
     runs-on: ${{matrix.os}}
     steps:
@@ -48,10 +49,19 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: ${{matrix.python-version}}
-      - name: Install Project
-        run: pip install '.[test]'
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
+
+      # - name: Install the project
+      #   run: uv sync --all-extras --dev
+
       - name: Run tests
-        run: pytest -v --cov=dundie --forked --junitxml=test-result.xml && coverage xml
+        run: |
+          uv run --extra test pytest -v --cov=dundie --forked --junitxml=test-result.xml
+          uv run --extra test coverage xml
 
       - name: "Upload coverage to Codecov"
         if: ${{ matrix.python-version == '3.10' }}
