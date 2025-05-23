@@ -83,18 +83,21 @@ def add_movement(
         add_movement(db, Person(...), 100, "me")
 
     """
-    movement = Movement(person=person, value=value, actor=actor)
+    if person and not person.id:
+        person = session.exec(select(Person).where(Person.email == person.email)).first()
+
+    movement = Movement(person_id=person.id, value=value, actor=actor)
     session.add(movement)
 
-    movements = session.exec(select(Movement).where(Movement.person == person))
+    movements = session.exec(select(Movement).where(Movement.person_id == person.id))
 
     total = sum([mov.value for mov in movements])
 
     existing_balance = session.exec(
-        select(Balance).where(Balance.person == person)
+        select(Balance).where(Balance.person_id == person.id)
     ).first()
     if existing_balance:
         existing_balance.value = total
         session.add(existing_balance)
     else:
-        session.add(Balance(person=person, value=total))
+        session.add(Balance(person_id=person.id, value=total))

@@ -6,7 +6,7 @@ from typing import Any, Dict, List
 from sqlmodel import select
 
 from dundie.database import get_session
-from dundie.models import Person
+from dundie.models import Movement, Person
 from dundie.settings import DATEFMT
 from dundie.utils.auth import requires_auth
 from dundie.utils.db import add_movement, add_person
@@ -71,14 +71,15 @@ def read(**query: Query) -> ResultDict:
         rates = get_rates(currencies)
         results = session.exec(sql)
         for person in results:
-            total = rates[person.currency].value * person.balance[0].value
+            total = rates[person.currency].value * person.balance.value
             return_data.append(
                 {
                     "email": person.email,
-                    "balance": person.balance[0].value,
-                    "last_movement": person.movement[-1].date.strftime(
-                        DATEFMT
-                    ),
+                    "balance": person.balance.value,
+                    # "last_movement": person.movement.date.strftime(
+                    #     DATEFMT
+                    # ),
+                    "last_movement": person.latest_movement(session).date.strftime(DATEFMT),
                     **person.dict(exclude={"id"}),
                     **{"value": total},
                 }
@@ -96,7 +97,7 @@ def add(value: int, from_person: Person, **query: Query):
         raise RuntimeError("Not Found")
 
     total = len(people) * value
-    if from_person.balance[0].value < total and not from_person.superuser:
+    if from_person.balance.value < total and not from_person.superuser:
         raise RuntimeError(f"Not enough balance to transfer {total}")
 
     with get_session() as session:
@@ -119,3 +120,34 @@ def add(value: int, from_person: Person, **query: Query):
                 )
 
         session.commit()
+
+
+def get_transactions(email: str) -> ResultDict:
+    """Get all transactions for a user by email
+    
+    Returns a list of movement records for the specified user
+    """
+    with get_session() as session:
+        person = session.exec(
+            select(Person).where(Person.email == email)
+        ).first()
+        
+        if not person:
+            return []
+            
+        movements = session.exec(
+            select(Movement).where(Movement.person_id == person.id).order_by(Movement.date.desc())
+        ).all()
+        
+        return [
+            {
+                "date": movement.date.strftime(DATEFMT),
+                "actor": movement.actor,
+                "value": float(movement.value),
+                "email": person.email,
+                "name": person.name,
+                "dept": person.dept,
+                "role": person.role
+            }
+            for movement in movements
+        ]
