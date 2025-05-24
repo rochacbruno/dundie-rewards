@@ -34,10 +34,10 @@ def requires_auth(f):
             ).first()
 
             if not person:
-                raise AuthError("User desn't exist")
+                raise AuthError("User doesn't exist")
 
-            if not verify_password(password, person.user[0].password):
-                raise AuthError("Authentication Error")
+            if not verify_password(password, person.user.password):
+                raise AuthError("Authentication failed")
 
         # dependency injection
         return f(*args, from_person=person, **kwargs)

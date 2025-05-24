@@ -53,8 +53,8 @@ def test_add_movement():
         session.refresh(joe)
         session.refresh(jim)
 
-        assert joe.balance[0].value == 470
-        assert jim.balance[0].value == 190
+        assert joe.balance.value == 470
+        assert jim.balance.value == 190
 
 
 @pytest.mark.unit
