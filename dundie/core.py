@@ -47,7 +47,7 @@ def load(filepath: str) -> ResultDict:
     return people
 
 
-def read(**query: Query) -> ResultDict:
+def read(add_rates: bool = True, **query: Query) -> ResultDict:
     """Read data from db and filters using query
 
     read(email="joe@doe.com")
@@ -68,10 +68,14 @@ def read(**query: Query) -> ResultDict:
         currencies = session.exec(
             select(Person.currency).distinct(Person.currency)
         )
-        rates = get_rates(currencies)
+        rates = get_rates(currencies) if add_rates else None
         results = session.exec(sql)
         for person in results:
-            total = rates[person.currency].value * person.balance.value
+            total = (
+                rates[person.currency].value * person.balance.value
+                if rates
+                else person.balance.value
+            )
             return_data.append(
                 {
                     "email": person.email,
@@ -82,7 +86,7 @@ def read(**query: Query) -> ResultDict:
                     "last_movement": person.latest_movement(
                         session
                     ).date.strftime(DATEFMT),
-                    **person.dict(exclude={"id"}),
+                    **person.model_dump(exclude={"id"}),
                     **{"value": total},
                 }
             )
