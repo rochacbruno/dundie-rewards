@@ -1,7 +1,8 @@
 from datetime import datetime
-from typing import Optional
+from decimal import Decimal
+from typing import Annotated, Optional
 
-from pydantic import condecimal, field_validator
+from pydantic import field_validator
 from sqlmodel import Field, Relationship, SQLModel, Session
 from sqlmodel import select
 
@@ -64,7 +65,7 @@ class Balance(SQLModel, table=True):
         sa_column_kwargs={"unique": True},
         # there is only one balance for each person
     )
-    value: condecimal(decimal_places=3) = Field(default=0)
+    value: Annotated[Decimal, Field(decimal_places=3, default=0)]
 
     person: Person = Relationship(back_populates="balance")
 
@@ -76,7 +77,7 @@ class Movement(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True, index=True)
     person_id: int = Field(foreign_key="person.id")
     actor: str = Field(nullable=False, index=True)
-    value: condecimal(decimal_places=3) = Field(default=0)
+    value: Annotated[Decimal, Field(decimal_places=3, default=0)]
     date: datetime = Field(default_factory=lambda: datetime.now())
 
     person: Person = Relationship(back_populates="movement")
