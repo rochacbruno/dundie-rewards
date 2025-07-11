@@ -1,12 +1,18 @@
+import sys
 import flet as ft
 from dundie.core import read, add, get_transactions, ResultDict
 
 
 def main(page: ft.Page):
     """Entry point for Application"""
+    # Page and Window Settings
     page.title = "Dundie Rewards"
     page.scroll = ft.ScrollMode.AUTO
     page.theme_mode = ft.ThemeMode.LIGHT
+    page.window.width = page.window.min_width = 400
+    page.window.height = page.window.min_height = 800
+
+    # State Variables
     selected_email = ft.Ref[str]()
 
     def router(event):
@@ -28,17 +34,13 @@ def main(page: ft.Page):
         users = read(add_rates=False)
         return ft.DataTable(
             columns=[
-                ft.DataColumn(ft.Text("Name")),
-                ft.DataColumn(ft.Text("Email")),
-                ft.DataColumn(ft.Text("Balance")),
                 ft.DataColumn(ft.Text("Action")),
+                ft.DataColumn(ft.Text("Name")),
+                ft.DataColumn(ft.Text("Balance")),
             ],
             rows=[
                 ft.DataRow(
                     cells=[
-                        ft.DataCell(ft.Text(user["name"])),
-                        ft.DataCell(ft.Text(user["email"])),
-                        ft.DataCell(ft.Text(f"{user['balance']:.2f}")),
                         ft.DataCell(
                             ft.IconButton(
                                 icon=ft.Icons.ADD_CIRCLE,
@@ -47,6 +49,8 @@ def main(page: ft.Page):
                                 data=user["email"],
                             )
                         ),
+                        ft.DataCell(ft.Text(user["name"])),
+                        ft.DataCell(ft.Text(f"{user['balance']:.2f}")),
                     ]
                 )
                 for user in users
@@ -59,7 +63,7 @@ def main(page: ft.Page):
             ft.DataRow(
                 cells=[
                     ft.DataCell(ft.Text(transaction["date"])),
-                    ft.DataCell(ft.Text(transaction["actor"])),
+                    ft.DataCell(ft.Text(transaction["actor"].split("@")[0])),
                     ft.DataCell(
                         ft.Text(
                             f"{transaction['value']:.2f}",
@@ -220,7 +224,19 @@ def main(page: ft.Page):
 
 
 def run():
-    ft.app(target=main, view=ft.AppView.WEB_BROWSER)
+    """Run the application
+
+    uv run flet dundie/app.py
+    uv run flet --web dundie/app.py
+    uv run flet --android dundie/app.py
+    """
+    args = sys.argv[1:]
+    if args and args[0] == "--web":
+        ft.app(
+            target=main, view=ft.AppView.WEB_BROWSER, port=5000, host="0.0.0.0"
+        )
+    else:
+        ft.app(target=main)
 
 
 if __name__ == "__main__":
