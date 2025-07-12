@@ -11,6 +11,7 @@ dependencies = [
     "aiosmtpd>=1.4.6",
     "alembic>=1.13.3",
     "click>=8.1.7",
+    "flet[all]==0.28.3",
     "httpx>=0.27.2",
     "pwdlib[argon2]>=0.2.1",
     "pydantic>=2.0",
@@ -27,6 +28,7 @@ Source = 'https://github.com/dm/dundie'
 
 [project.scripts]
 dundie = "dundie.__main__:main"
+dundie-app = "dundie.app:run"
 
 [project.optional-dependencies]
 test = [

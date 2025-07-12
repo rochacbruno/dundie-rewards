@@ -2,7 +2,7 @@ from datetime import datetime
 from decimal import Decimal
 from typing import Annotated, Optional
 
-from pydantic import field_validator
+from pydantic import ConfigDict, field_validator
 from sqlmodel import Field, Relationship, SQLModel, Session
 from sqlmodel import select
 
@@ -69,8 +69,7 @@ class Balance(SQLModel, table=True):
 
     person: Person = Relationship(back_populates="balance")
 
-    class Config:
-        json_encoders = {Person: lambda p: p.pk}
+    model_config = ConfigDict(json_encoders={Person: lambda p: p.id})
 
 
 class Movement(SQLModel, table=True):
@@ -82,8 +81,7 @@ class Movement(SQLModel, table=True):
 
     person: Person = Relationship(back_populates="movement")
 
-    class Config:
-        json_encoders = {Person: lambda p: p.pk}
+    model_config = ConfigDict(json_encoders={Person: lambda p: p.id})
 
 
 class User(SQLModel, table=True):
@@ -95,5 +93,4 @@ class User(SQLModel, table=True):
 
     person: Person = Relationship(back_populates="user")
 
-    class Config:
-        json_encoders = {Person: lambda p: p.pk}
+    model_config = ConfigDict(json_encoders={Person: lambda p: p.id})
