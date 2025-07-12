@@ -29,7 +29,7 @@ pip install seunome-dundie
 pip install -e `.[dev]`
 ```
 
-## Usage
+## Usage on CLI
 
 ```py
 dundie --help
@@ -37,3 +37,57 @@ dundie --help
 
 ![](./assets/dundie.gif)
 
+
+## Usage on desktop
+
+```bash
+dundie-app
+```
+
+https://github.com/user-attachments/assets/3ba418ac-7ac8-4bc8-a0ee-615eaec7f431
+
+
+## Usage on web browser
+
+```bash
+dundie-app --web
+```
+
+then open http://127.0.0.1:5000/
+
+## Usage on Android or iOS
+
+
+TIP: If running on a Mac you can replace `--android` with `--ios`
+
+```bash
+uv run flet run --android dundie/app.py
+
+App is running on: http://192.168.1.132:8551/dundie/app.py
+
+█████████████████████████████████████████
+█████████████████████████████████████████
+████ ▄▄▄▄▄ █   ▄█ █ ▀▄▄▄ ▀█ ▀█ ▄▄▄▄▄ ████
+████ █   █ █▀█ ▄ █▀█▀▄ ▀▄ █ ▄█ █   █ ████
+████ █▄▄▄█ ███▄▄▄  ██▄ ▀▄▄ ▄ █ █▄▄▄█ ████
+████▄▄▄▄▄▄▄█ ▀▄█ ▀ █▄▀▄█▄█ ▀ █▄▄▄▄▄▄▄████
+████ █  ▀▄▄▄█ ▀██▄██▀  ▀█▄█ ██ ▀█ ▀▄▄████
+████▀▄▄█▄▀▄█▀▀█  ▀  ▀▄▄▀ ██ █ █ ▄ █ ▀████
+██████ ▄▀ ▄█ ▀▀▄▄██▄▀▀ █ ▄▀▀█▄ ██▄█ ▄████
+█████▀    ▄█   ▀▄ ▄▄ █▄▄▀▀██ ▀ ▀▀█ ██████
+█████  ▄▀▀▄▀▄▀█▄▀█▄  ▀ ▄▀ ▀▀   █  ▄█▀████
+████▄▀▄▀ ▀▄▄▀█▄▀█ ▀▄█ ██▄██▀ ▀▀▄ █▄██████
+████ █▄ ▀ ▄ ▄ ▄▄█ █▀██ ▄ █▀█▄█▀█ ▄ █▀████
+█████▀▄▄█▄▄ ▀█▀█  ██ █▄▀▄▄  ▄█▄▄█ ▄ ▄████
+████▄█▄▄█▄▄█▀▀▄ ▀▀█▄▄ ▄ █▀▄▀ ▄▄▄  █▀▄████
+████ ▄▄▄▄▄ █ ▄ █▄▄▀▄▀█▀▄▀▀   █▄█ ▀▀▀▀████
+████ █   █ █▀  ▀ ▄ ██▄█ ▀█ ▄ ▄▄ ▄▀▄██████
+████ █▄▄▄█ █▄█▀▀▄▀▄▀▀█▄  █▄ ██  ▀  █▀████
+████▄▄▄▄▄▄▄█▄▄███▄█▄█▄███▄██████▄████████
+█████████████████████████████████████████
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+```
+
+Install `flet` app on your mobile and then scan the QRCode, your computer and phone must be in the same Wifi network.
+
+More on https://flet.dev/docs/publish
