@@ -19,26 +19,33 @@ Os dados dos funcionários atuais serão fornecidos em um arquivo que pode ser n
 e este mesmo arquivo poderá ser usado para versões futuras. `Nome, Depto, Cargo, Email`
 
 
-## Installation
+## Instalação
 
-```py
-pip install seunome-dundie
+Installe o UV https://docs.astral.sh/uv/getting-started/installation/
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
+e então execute na raiz deste repositório.
+
 ```py
-pip install -e `.[dev]`
+uv sync
+uv tool install . -e
 ```
 
-## Usage on CLI
+## Uso no CLI
 
 ```py
 dundie --help
 ```
 
+DICA: tambem pode usar `uv run dundie` se preferir.
+
 ![](./assets/dundie.gif)
 
 
-## Usage on desktop
+## Uso no desktop
 
 ```bash
 dundie-app
@@ -47,7 +54,7 @@ dundie-app
 https://github.com/user-attachments/assets/3ba418ac-7ac8-4bc8-a0ee-615eaec7f431
 
 
-## Usage on web browser
+## Uso no web browser
 
 ```bash
 dundie-app --web
@@ -55,10 +62,10 @@ dundie-app --web
 
 then open http://127.0.0.1:5000/
 
-## Usage on Android or iOS
+## Uso no Android ou iOS
 
 
-TIP: If running on a Mac you can replace `--android` with `--ios`
+DICA: No mac + iphone ao invés de `--android` use `--ios`
 
 ```bash
 uv run flet run --android dundie/app.py
@@ -88,6 +95,6 @@ App is running on: http://192.168.1.132:8551/dundie/app.py
 ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 ```
 
-Install `flet` app on your mobile and then scan the QRCode, your computer and phone must be in the same Wifi network.
+Instale a app `flet` no seu celular e então escaneie o  QRCode, seu computador e o celular devem estar na mesma rede wi-fi.
 
-More on https://flet.dev/docs/publish
+Detalhes em https://flet.dev/docs/publish
