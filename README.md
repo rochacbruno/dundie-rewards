@@ -1,3 +1,5 @@
+Isto é apenas um teste
+
 # Projeto Dundie Rewards
 
 [![CI](https://github.com/rochacbruno/dundie-rewards/actions/workflows/main.yml/badge.svg)](https://github.com/rochacbruno/dundie-rewards/actions/workflows/main.yml)
